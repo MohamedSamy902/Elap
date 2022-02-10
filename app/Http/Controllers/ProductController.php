@@ -1,0 +1,261 @@
+<?php
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use App\Models\Comment;
+use App\Models\Product;
+use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Models\HistoryProduct;
+use Spatie\Permission\Models\Role;
+use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Permission;
+
+class ProductController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+    */
+
+    // function __construct()
+    // {
+    //     $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
+    //     $this->middleware('permission:role-create', ['only' => ['create','store']]);
+    //     $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
+    //     $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+    // }
+
+
+    public function index()
+    {
+        $products = Product::all();
+        
+        // Get Id Role Name With Name Role In User
+        $userRoleId = Role::where('name', '=', Auth::user()->roles_name[0])->first();
+
+        // Get Pirmations Catrgories
+        $pirmations_cat = Auth::user()->permission_cat->pluck('category_id');
+        // Canver Object To Array
+        $cat = json_decode($pirmations_cat);
+
+        return view('admin.product.index', compact('products', 'cat'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        // return Auth::user()->roles_name;
+        $categories = Category::all();
+        return view('admin.product.create', compact('categories'));
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        try {
+            // Get Coustmer With Phone Nymber
+            $costmer = User::where('phone', '=', $request->phone)->count();
+            // Check This Coustmer Is Exiest Or No
+            if ($costmer !== 0) {
+                // Get Count Requrd
+                $count = $request->count;
+                for ($i=0; $i < $count; $i++) {
+                    // Inser Only Prodact
+                    // Except User Data
+                    $data = $request->except(['name', 'phone', 'email']);
+                    // Get User Id
+                    $userId = $request->user_id;
+                    // Get Coustmer Id
+                    $data['customers_id'] = $userId;
+                    // Insert Serial Number
+                    $data['serial_number'] = serial_number(1);
+                    // Insert Prodact
+                    $product = Product::create($data);
+                    // Insert History Product
+                    $history = history(0, Auth::user()->id, $product->id);
+                    // Insert Comment
+                    if ($request->comment) {
+                        $data = [];
+                        $data['comment'] = $request->comment;
+                        $data['product_id'] = $product->id;
+                        $data['user_id'] = Auth::user()->id;
+                        $comment = Comment::create($data);
+                    }
+                }
+            }else {
+                return redirect()->route('product.create')->with(['error' => 'يرجي اضافه العميل اولا']);
+            }
+
+            return redirect()->route('product.create')->with(['success' => 'تم حفط المنتج بنجاح']);
+
+        } catch (\Exception $ex) {
+            return $ex;
+            return redirect()->route('product.create')->with(['error' => 'يرجي المحاوله مره اخري']);
+        }
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $product = Product::where('id', '=', $id)->first();
+
+        return view('admin.product.show', compact('product'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Product $product)
+    {
+        $categories = Category::all();
+        return view('admin.product.edit', compact('product', 'categories'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request,  $id)
+    {
+        try {
+            $product = Product::find($id);
+            // Get Coustmer With Phone Nymber
+            $costmer = User::where('phone', '=', $request->phone)->count();
+            // Check This Coustmer Is Exiest Or No
+            if ($costmer !== 0) {
+                // Get Count Requrd
+                $count = $request->count;
+                    // Inser Only Prodact
+                    // Except User Data
+                    $data = $request->except(['name', 'phone', 'email']);
+                    // Get User Id
+                    $userId = $request->user_id;
+                    // Get Coustmer Id
+                    $data['customers_id'] = $userId;
+                    // Insert Serial Number
+                    // Insert Prodact
+                    $status = $product->fill($data)->save();
+            }else {
+                return redirect()->route('product.create')->with(['error' => 'يرجي اضافه العميل اولا']);
+            }
+
+            return redirect()->route('product.index')->with(['success' => 'تم التعديل بنجاح']);
+
+        } catch (\Exception $ex) {
+            return redirect()->route('product.create')->with(['error' => 'يرجي المحاوله مره اخري']);
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Product  $product
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Product $product)
+    {
+        //
+    }
+    public function receptionFixed($id)
+    {
+
+        $product = Product::find($id);
+        if(Auth::user()->roles_name[0] == 'تست'){
+            $data_product['status'] = 1;
+            $product->fill($data_product)->save();
+        }elseif (Auth::user()->roles_name[0] == 'صيانه') {
+            $data_product['status'] = 3;
+            $product->fill($data_product)->save();
+        }elseif (Auth::user()->roles_name[0] == 'صيانه متقدمه') {
+            $data_product['status'] = 5;
+            $product->fill($data_product)->save();
+        }
+        // Insert History Product
+        $history = history(1, Auth::user()->id, $product->id);
+
+        return redirect()->route('product.index')->with(['success' => 'تم بنجاح']);
+    }
+
+    public function deliveryFixed($id)
+    {
+        $product = Product::find($id);
+
+        $history = $product->history_products->last();
+        if ($history->status == 1 && $history->product_id == $id && $history->end_at == NULL) {
+            if(Auth::user()->roles_name[0] == 'تست'){
+                $data_product['status'] = 2;
+                $product->fill($data_product)->save();
+            }elseif (Auth::user()->roles_name[0] == 'صيانه') {
+                $data_product['status'] = 4;
+                $product->fill($data_product)->save();
+            }elseif (Auth::user()->roles_name[0] == 'صيانه متقدمه') {
+                $data_product['status'] = 6;
+                $product->fill($data_product)->save();
+            }
+
+
+            $data_history['status'] = 2;
+            $data_history['end_at'] = NOW();
+
+            $history->fill($data_history)->save();
+
+            return redirect()->route('product.index')->with(['success' => 'تم بنجاح']);
+        }
+        return redirect()->route('product.create')->with(['error' => 'يرجي المحاوله مره اخري']);
+    }
+
+    public function doneFixed($id)
+    {
+        $product = Product::find($id);
+        $data_product['status'] = 8;
+        $product->fill($data_product)->save();
+        $history = history(1, Auth::user()->id, $product->id);
+        return redirect()->route('product.index')->with(['success' => 'تم بنجاح']);
+    }
+
+    public function filedFixed($id)
+    {
+
+        $product = Product::find($id);
+        $data_product['status'] = 7;
+        $product->fill($data_product)->save();
+
+        $history = history(1, Auth::user()->id, $product->id);
+
+        return redirect()->route('product.index')->with(['success' => 'تم بنجاح']);
+    }
+
+    public function compleat($id)
+    {
+
+        $product = Product::find($id);
+        $data_product['status'] = 9;
+        $product->fill($data_product)->save();
+
+        $history = history(1, Auth::user()->id, $product->id);
+
+        return redirect()->route('product.index')->with(['success' => 'تم بنجاح']);
+    }
+}
