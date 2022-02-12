@@ -46,7 +46,7 @@
                                     <tr>
                                         <th>#</th>
                                         <th>الاسم</th>
-                                        <th>التحكم</th>
+                                        <th>الموظفين</th>
                                     </tr>
                                 </thead>
 
@@ -55,16 +55,13 @@
 
                                         <tr>
                                             <td>{{ $category->id }}</td>
+                                            <td>{{ $category->name }}</td>
                                             <td>
-                                                <a href="{{ route('category.show', $category->id) }}">
-                                             {{ $category->name }}
-                                             </a>
-                                        </td>
-                                            <td>
-                                                <a href="{{ route('category.edit', $category->id) }}"><i
-                                                        class="icofont icofont-ui-edit"></i></a>
-                                                <a href="{{ route('category.delet', $category->id) }}"><i
-                                                        class="icofont icofont-ui-delete"></i></a>
+                                                <ul>
+                                                    @foreach($category->permissioncat as $key)
+                                                        <li>{{ $key->user->name }}</li>
+                                                    @endforeach
+                                                </ul>
                                             </td>
                                         </tr>
                                     @endforeach

@@ -33,6 +33,7 @@
                     @foreach ($product->history_products as $history)
                         <div class="col-4">
                             <span>{{ $history->user->roles_name[0] }}
+                                ({{ $history->user->name }})
                             </span>
                         </div>
                         <div class="col-4 font-primary">

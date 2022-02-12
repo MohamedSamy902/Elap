@@ -1,12 +1,14 @@
 <?php
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
-use Spatie\Permission\Models\Permission;
-use App\Http\Controllers\Controller;
-use App\Models\User;
-use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
+use App\Models\User;
+use Illuminate\Http\Request;
+use App\Models\HistoryProduct;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use Spatie\Permission\Models\Permission;
+
 class UserController extends Controller
 {
     /**
@@ -67,14 +69,15 @@ class UserController extends Controller
     public function edit($id)
     {
         $user       = User::find($id);
+        $historys    = HistoryProduct::where('user_id', '=', $id)->get();
+        // return $history->product;
         $roles      = Role::pluck('name','name')->all();
         $role = Role::where('name', '=', $user->roles_name[0])->first();
 
         $userrolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
         ->where("role_has_permissions.role_id",$role->id)
         ->get();
-
-        return view('admin.users.edit',compact('user','roles','userrolePermissions'));
+        return view('admin.users.edit',compact('user','roles','userrolePermissions', 'historys'));
     }
     /**
     * Update the specified resource in storage.
@@ -162,13 +165,6 @@ class UserController extends Controller
     }
 
 
-    public function customerSearch(Request $request)
-    {
-        $phone = $request->search;
-        $user       = User::where('phone', '=', $phone)->first();
-        $products = \App\Models\Product::where('customers_id', '=', $user->id)->get();
-        return view('admin.customer.edit',compact('user', 'products'));
-    }
 
 }
 

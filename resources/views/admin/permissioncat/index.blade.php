@@ -45,26 +45,24 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>الاسم</th>
+                                        <th>اسم الموظف </th>
+                                        <th>صلاحيه القسم</th>
                                         <th>التحكم</th>
                                     </tr>
                                 </thead>
 
                                 <tbody>
-                                    @foreach ($categories as $category)
+                                    @foreach ($permissioncats as $permissioncat)
 
                                         <tr>
-                                            <td>{{ $category->id }}</td>
+                                            <td>{{ $permissioncat->id }}</td>
+                                            <td>{{ $permissioncat->category->name }}</td>
+                                            <td>{{ $permissioncat->user->name }}</td>
                                             <td>
-                                                <a href="{{ route('category.show', $category->id) }}">
-                                             {{ $category->name }}
-                                             </a>
-                                        </td>
-                                            <td>
-                                                <a href="{{ route('category.edit', $category->id) }}"><i
-                                                        class="icofont icofont-ui-edit"></i></a>
-                                                <a href="{{ route('category.delet', $category->id) }}"><i
-                                                        class="icofont icofont-ui-delete"></i></a>
+                                                {!! Form::open(['method' => 'DELETE', 'route' => ['permissioncat.destroy', $permissioncat->id], 'style' => 'display:inline']) !!}
+                                                    {!! Form::submit('حذف', ['class' => 'icofont icofont-ui-delete']) !!}
+                                                {!! Form::close() !!}
+
                                             </td>
                                         </tr>
                                     @endforeach
@@ -78,4 +76,5 @@
         </div>
     </div>
     <!-- Container-fluid Ends-->
+
 @endsection

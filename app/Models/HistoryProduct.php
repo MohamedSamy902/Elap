@@ -13,6 +13,7 @@ class HistoryProduct extends Model
         'user_id',
         'product_id',
         'end_at',
+        'serial_number'
     ];
 
     public function product(){

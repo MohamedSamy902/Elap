@@ -46,12 +46,13 @@ function serial_number($count)
     }
 }
 
-function history($status, $user_id, $product_id)
+function history($status, $user_id, $product_id, $serial_number)
     {
         $histort = [];
         $histort['status'] = $status;
         $histort['user_id'] = $user_id;
         $histort['product_id'] = $product_id;
+        $histort['serial_number'] = $serial_number;
         HistoryProduct::create($histort);
     }
 

@@ -31,7 +31,7 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        
+
         // Get Id Role Name With Name Role In User
         $userRoleId = Role::where('name', '=', Auth::user()->roles_name[0])->first();
 
@@ -79,11 +79,15 @@ class ProductController extends Controller
                     // Get Coustmer Id
                     $data['customers_id'] = $userId;
                     // Insert Serial Number
-                    $data['serial_number'] = serial_number(1);
+                    if ($request->serial_number == "") {
+                        $data['serial_number'] = $request->serial_number;
+                    }else {
+                        $data['serial_number'] = serial_number(1);
+                    }
                     // Insert Prodact
                     $product = Product::create($data);
                     // Insert History Product
-                    $history = history(0, Auth::user()->id, $product->id);
+                    $history = history(0, Auth::user()->id, $product->id,$data['serial_number']);
                     // Insert Comment
                     if ($request->comment) {
                         $data = [];
@@ -193,7 +197,7 @@ class ProductController extends Controller
             $product->fill($data_product)->save();
         }
         // Insert History Product
-        $history = history(1, Auth::user()->id, $product->id);
+        $history = history(1, Auth::user()->id, $product->id, $product->serial_number);
 
         return redirect()->route('product.index')->with(['success' => 'تم بنجاح']);
     }
@@ -231,7 +235,7 @@ class ProductController extends Controller
         $product = Product::find($id);
         $data_product['status'] = 8;
         $product->fill($data_product)->save();
-        $history = history(1, Auth::user()->id, $product->id);
+        $history = history(1, Auth::user()->id, $product->id, $product->serial_number);
         return redirect()->route('product.index')->with(['success' => 'تم بنجاح']);
     }
 
@@ -242,7 +246,7 @@ class ProductController extends Controller
         $data_product['status'] = 7;
         $product->fill($data_product)->save();
 
-        $history = history(1, Auth::user()->id, $product->id);
+        $history = history(1, Auth::user()->id, $product->id, $product->serial_number);
 
         return redirect()->route('product.index')->with(['success' => 'تم بنجاح']);
     }
@@ -254,8 +258,15 @@ class ProductController extends Controller
         $data_product['status'] = 9;
         $product->fill($data_product)->save();
 
-        $history = history(1, Auth::user()->id, $product->id);
+        $history = history(1, Auth::user()->id, $product->id, $product->serial_number);
 
         return redirect()->route('product.index')->with(['success' => 'تم بنجاح']);
+    }
+
+
+    public function productSearch(Request $request)
+    {
+        $product       = Product::where('serial_number', '=', $request->search)->first();
+        return view('admin.product.show', compact('product'));
     }
 }

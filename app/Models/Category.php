@@ -17,4 +17,9 @@ class Category extends Model
     {
         return $this->hasMany(Product::class, 'category_id','id');
     }
+
+    public function permissioncat()
+    {
+        return $this->hasMany(PermissionCat::class, 'category_id','id');
+    }
 }

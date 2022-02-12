@@ -15,7 +15,7 @@
         <div class="left-menu-header col">
             <ul>
                 <li>
-                    <form class="form-inline search-form" action="{{ route('customer.search') }}" method="get">
+                    <form class="form-inline search-form" action="{{ route('product.search') }}" method="post">
                         @csrf
                         <div class="search-bg">
                             <i class="fa fa-search"></i>

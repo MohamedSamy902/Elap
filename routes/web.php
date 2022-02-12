@@ -35,6 +35,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function() {
     Route::get('product/{id}/filedfixed', 'App\Http\Controllers\ProductController@filedFixed')->name('product.filedfixed');
     Route::get('product/{id}/compleat', 'App\Http\Controllers\ProductController@compleat')->name('product.compleat');
 
+    Route::post('search', 'App\Http\Controllers\ProductController@productSearch')->name('product.search');
+
     // End Product
 
     // Start Users
@@ -45,7 +47,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function() {
     Route::get('customer/{id}/edit', 'App\Http\Controllers\UserController@customerEdit')->name('customer.edit');
     Route::get('customer/create/', 'App\Http\Controllers\UserController@customerCreate')->name('customer.create');
 
-    Route::get('customer/search', 'App\Http\Controllers\UserController@customerSearch')->name('customer.search');
+
 
     Route::resource('roles','App\Http\Controllers\RoleController');
+    Route::resource('permissioncat','App\Http\Controllers\PermissionCatController');
 });

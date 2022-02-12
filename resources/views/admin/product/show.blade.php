@@ -42,7 +42,7 @@
                                                             <div class="row details">
                                                                 @foreach ($product->history_products as $history)
                                                                     <div class="col-4">
-                                                                        <span>{{ $history->user->roles_name[0] }} </span>
+                                                                        <span>{{ $history->user->roles_name[0] }} ({{ $history->user->name }})</span>
                                                                     </div>
                                                                     <div class="col-4 font-primary">{{ $history->created_at }}
                                                                     </div>
@@ -78,15 +78,18 @@
 
                                         <div class="media-body">
                                             <div class="row">
-                                                <div class="col-md-4"><a href="user-profile.html">
-                                                        {{-- <h6 class="mt-0 text-start">{{ $comment->user["name"] }}<span> ( --}}
-                                                                {{-- {{ $comment->user["roles_name"] }} )</span></h6> --}}
-                                                    </a></div>
+                                                <div class="col-md-4">
+                                                    <a href="">
+                                                        <h6 class="mt-0 text-start">{{ $comment->user["name"] }}
+                                                            <span> ({{ $comment->user->roles_name['0'] }} )</span>
+                                                        </h6>
+                                                    </a>
+                                                </div>
                                             </div>
                                             <p>{{ $comment->comment }}</p>
                                         </div>
                                     </div>
-                                </li>
+                                </li>   
                             @endforeach
                         </ul>
                     </div>
