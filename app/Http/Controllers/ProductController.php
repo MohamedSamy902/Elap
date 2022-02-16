@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\HistoryProduct;
+use App\Models\Point;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
@@ -50,7 +51,6 @@ class ProductController extends Controller
      */
     public function create()
     {
-        // return Auth::user()->roles_name;
         $categories = Category::all();
         return view('admin.product.create', compact('categories'));
     }
@@ -63,31 +63,46 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        try {
+        // try {
             // Get Coustmer With Phone Nymber
             $costmer = User::where('phone', '=', $request->phone)->count();
             // Check This Coustmer Is Exiest Or No
             if ($costmer !== 0) {
                 // Get Count Requrd
-                $count = $request->count;
+                $count = COUNT($request->serial_number);
+
+                // return COUNT($count);
                 for ($i=0; $i < $count; $i++) {
+
                     // Inser Only Prodact
                     // Except User Data
                     $data = $request->except(['name', 'phone', 'email']);
+                    // return $data['product_inclusions'][$i];
                     // Get User Id
-                    $userId = $request->user_id;
+                    $customers_id = $request->user_id;
                     // Get Coustmer Id
-                    $data['customers_id'] = $userId;
-                    // Insert Serial Number
-                    if ($request->serial_number == "") {
-                        $data['serial_number'] = $request->serial_number;
-                    }else {
-                        $data['serial_number'] = serial_number(1);
-                    }
+                    $data['customers_id'] = $customers_id;
+                    $data['count'] = 1;
+                    $data['product_inclusions'] = $request->product_inclusions[$i];
+                    $data['user_id'] = Auth::user()->id;
                     // Insert Prodact
+
+                    // Insert Serial Number
+                    if ($request->serial_number[$i] == "") {
+                        $data['serial_number'] = serial_number(1);
+                    }else {
+                        $data['serial_number'] = $request->serial_number[$i];
+                    }
+
                     $product = Product::create($data);
-                    // Insert History Product
-                    $history = history(0, Auth::user()->id, $product->id,$data['serial_number']);
+                    //  return $product->serial_number;
+                    if ($request->serial_number[$i] == "") {
+                        history(0, Auth::user()->id, $product->id, $product->serial_number);
+                    }else {
+                        history(0, Auth::user()->id, $product->id, $product->serial_number);
+                    }
+
+
                     // Insert Comment
                     if ($request->comment) {
                         $data = [];
@@ -103,10 +118,10 @@ class ProductController extends Controller
 
             return redirect()->route('product.create')->with(['success' => 'تم حفط المنتج بنجاح']);
 
-        } catch (\Exception $ex) {
-            return $ex;
-            return redirect()->route('product.create')->with(['error' => 'يرجي المحاوله مره اخري']);
-        }
+        // } catch (\Exception $ex) {
+        //     return $ex;
+        //     return redirect()->route('product.create')->with(['error' => 'يرجي المحاوله مره اخري']);
+        // }
     }
 
     /**
@@ -260,6 +275,11 @@ class ProductController extends Controller
 
         $history = history(1, Auth::user()->id, $product->id, $product->serial_number);
 
+        $data = [];
+        $data['user_id'] = Auth::user()->id;
+        $data['product_id'] = $id;
+        $data['point'] = 2;
+        Point::create($data);
         return redirect()->route('product.index')->with(['success' => 'تم بنجاح']);
     }
 

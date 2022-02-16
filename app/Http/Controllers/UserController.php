@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $users = User::where('roles_name', '!=', '["\u0639\u0645\u064a\u0644"]')->orderBy('id','DESC')->paginate(5);
-
+        
         return view('admin.users.index',compact('users'))
         ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -70,13 +70,15 @@ class UserController extends Controller
     {
         $user       = User::find($id);
         $historys    = HistoryProduct::where('user_id', '=', $id)->get();
-        // return $history->product;
+        // return $historys;
         $roles      = Role::pluck('name','name')->all();
         $role = Role::where('name', '=', $user->roles_name[0])->first();
 
         $userrolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
         ->where("role_has_permissions.role_id",$role->id)
         ->get();
+
+
         return view('admin.users.edit',compact('user','roles','userrolePermissions', 'historys'));
     }
     /**

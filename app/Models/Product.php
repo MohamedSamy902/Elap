@@ -39,4 +39,9 @@ class Product extends Model
     public function category(){
         return $this->belongsTo(Category::class);
     }
+
+    public function point()
+    {
+        return $this->hasMany(Point::class, 'product_id','id');
+    }
 }

@@ -80,7 +80,10 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
  
 
-المشتملات علي حسب العدد
-المنتجات في صفحه كل كموظف
+مشكله في السريال  done
+التعليقات 
+المشتملات علي حسب العدد done
+المنتجات في صفحه كل كموظف done
 السيرش بالسريال done
 البرمشن بتاع الاقسام done
+النقاط 

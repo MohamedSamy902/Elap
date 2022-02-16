@@ -6,7 +6,8 @@ use App\Models\HistoryProduct;
 function serial_number($count)
 {
     // Get Last Product Serial
-    $product = Product::select('serial_number')->max('serial_number');
+    $product = Product::where('serial_number', 'LIKE', '%Elap-%')->max('serial_number');
+    // $product = Product::select('serial_number')->max('serial_number');
     if ($product) {
         // Get Last Serial And Convert String To Array
         $last_count = explode('-', $product);

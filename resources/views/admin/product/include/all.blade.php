@@ -8,10 +8,10 @@
                 <div class="media"><img class="img-20 me-2 rounded-circle" src="../assets/images/user/3.jpg"
                         alt="" data-original-title="" title="">
                     <div class="media-body">
-                        <p>{{ $product->user->name }}</p>
+                        {{-- <p>{{ $product->user->name }}</p> --}}
                     </div>
                 </div>
-                <p>{{ $product->user->name }}</p>
+                {{-- <p>{{ $product->user->name }}</p> --}}
                 <div class="row details">
                     <div class="col-6"><span>المشتملات </span>
                     </div>
@@ -46,6 +46,7 @@
 
                 </div>
             </div>
+
             <div class="col-xl-3 col-lg-3">
                 <div class="row">
                     @can('تعديل منتج')

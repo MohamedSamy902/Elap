@@ -50,6 +50,7 @@
                                         <th>الاسم</th>
                                         <th>الموبايل</th>
                                         <th>الوظيفه</th>
+                                        <th>القسم</th>
                                         <th>التحكم</th>
                                     </tr>
                                 </thead>
@@ -61,6 +62,11 @@
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->phone }}</td>
                                             <td>{{ $user->roles_name[0] }}</td>
+                                            <td>
+                                                @foreach($user->permission_cat as $cat)
+                                                    {{ $cat->category->name }}<br>
+                                                @endforeach
+                                            </td>
                                             <td>
                                                 <a href="{{ route('user.edit', $user->id) }}"><i
                                                         class="icofont icofont-ui-edit"></i></a>

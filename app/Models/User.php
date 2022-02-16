@@ -69,4 +69,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(PermissionCat::class, 'user_id','id');
     }
+
+    public function point()
+    {
+        return $this->hasMany(Point::class, 'user_id','id');
+    }
 }
