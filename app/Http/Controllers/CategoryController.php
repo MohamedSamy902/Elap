@@ -133,11 +133,13 @@ class CategoryController extends Controller
     {
         try {
             $category = Category::find($id);
-            if ($category) {
+
+            $count = COUNT($category->product);
+            if ($count == 0) {
                 $category->delete();
                 return redirect()->route('category.index')->with(['success' => 'تم الحذف بنجاح']);
             }else {
-                return redirect()->route('category.index')->with(['error' => 'يرجي المحاوله مره اخري']);
+                return redirect()->route('category.index')->with(['error' => 'هناك منتجات في هذا القسم']);
             }
 
         } catch (\Exception $ex) {

@@ -16,37 +16,42 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="#top-profile"
-                                            role="tab" aria-controls="top-profile" aria-selected="false">
+                                        <a class="nav-link" id="profile-top-tab" data-bs-toggle="tab"
+                                            href="#top-profile" role="tab" aria-controls="top-profile"
+                                            aria-selected="false">
                                             <i data-feather="info"></i>
                                             تم بدء العمل
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="contact-top-tab" data-bs-toggle="tab" href="#top-contact"
-                                            role="tab" aria-controls="top-contact" aria-selected="false">
+                                        <a class="nav-link" id="contact-top-tab" data-bs-toggle="tab"
+                                            href="#top-contact" role="tab" aria-controls="top-contact"
+                                            aria-selected="false">
                                             <i data-feather="check-circle"></i>
                                             تم انتهاء العمل
                                         </a>
                                     </li>
                                 @else
                                     <li class="nav-item">
-                                        <a class="nav-link active" id="top-home-tab" data-bs-toggle="tab" href="#top-home"
+                                        <a
+                                            class="nav-link active" id="top-home-tab" data-bs-toggle="tab" href="#top-home"
                                             role="tab" aria-controls="top-home" aria-selected="true">
                                             <i data-feather="target"></i>
                                             الكل
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="profile-top-tab" data-bs-toggle="tab" href="#top-profile"
-                                            role="tab" aria-controls="top-profile" aria-selected="false">
+                                        <a class="nav-link" id="profile-top-tab" data-bs-toggle="tab"
+                                            href="#top-profile" role="tab" aria-controls="top-profile"
+                                            aria-selected="false">
                                             <i data-feather="info"></i>
                                             تم بدء العمل
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" id="contact-top-tab" data-bs-toggle="tab" href="#top-contact"
-                                            role="tab" aria-controls="top-contact" aria-selected="false">
+                                        <a class="nav-link" id="contact-top-tab" data-bs-toggle="tab"
+                                            href="#top-contact" role="tab" aria-controls="top-contact"
+                                            aria-selected="false">
                                             <i data-feather="check-circle"></i>
                                             تم انتهاء العمل
                                         </a>
@@ -71,31 +76,33 @@
                                     aria-labelledby="top-home-tab">
                                     <div class="row">
                                         @foreach ($products as $product)
-                                            @if(in_array($product->category_id, $cat) == 1 &&  $product->status == 0)
+                                            @if (in_array($product->category_id, $cat) == 1 && $product->status == 0)
                                                 @include('admin.product.include.all')
                                             @endif
                                         @endforeach
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade" id="top-profile" role="tabpanel" aria-labelledby="profile-top-tab">
+                                <div class="tab-pane fade" id="top-profile" role="tabpanel"
+                                    aria-labelledby="profile-top-tab">
                                     <div class="row">
-                                            @foreach ($products as $product)
-                                                @if (in_array($product->category_id, $cat) == 1 &&  $product->status == 1)
+                                        @foreach ($products as $product)
+                                            @if (in_array($product->category_id, $cat) == 1 && $product->status == 1)
 
-                                                    @include('admin.product.include.doing')
-                                                @endif
-                                            @endforeach
+                                                @include('admin.product.include.doing')
+                                            @endif
+                                        @endforeach
                                     </div>
                                 </div>
 
-                                <div class="tab-pane fade" id="top-contact" role="tabpanel" aria-labelledby="contact-top-tab">
+                                <div class="tab-pane fade" id="top-contact" role="tabpanel"
+                                    aria-labelledby="contact-top-tab">
                                     <div class="row">
-                                            @foreach ($products as $product)
-                                                @if (in_array($product->category_id, $cat) == 1 &&  $product->status >= 2)
-                                                    @include('admin.product.include.done')
-                                                @endif
-                                            @endforeach
+                                        @foreach ($products as $product)
+                                            @if (in_array($product->category_id, $cat) == 1 && $product->status >= 2)
+                                                @include('admin.product.include.done')
+                                            @endif
+                                        @endforeach
                                     </div>
                                 </div>
 
@@ -105,27 +112,29 @@
                                 <div class="tab-pane fade show active" id="top-home" role="tabpanel"
                                     aria-labelledby="top-home-tab">
                                     <div class="row">
-                                            @foreach ($products as $product)
-                                                @if(in_array($product->category_id, $cat) == 1 &&  $product->status == 2)
-                                                    @include('admin.product.include.all')
-                                                @endif
-                                            @endforeach
+                                        @foreach ($products as $product)
+                                            @if (in_array($product->category_id, $cat) == 1 && $product->status == 2)
+                                                @include('admin.product.include.all')
+                                            @endif
+                                        @endforeach
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="top-profile" role="tabpanel" aria-labelledby="profile-top-tab">
-                                    <div class="row">
-                                            @foreach ($products as $product)
-                                                @if (in_array($product->category_id, $cat) == 1 &&  $product->status == 3)
-
-                                                    @include('admin.product.include.doing')
-                                                @endif
-                                            @endforeach
-                                    </div>
-                                </div>
-                                <div class="tab-pane fade" id="top-contact" role="tabpanel" aria-labelledby="contact-top-tab">
+                                <div class="tab-pane fade" id="top-profile" role="tabpanel"
+                                    aria-labelledby="profile-top-tab">
                                     <div class="row">
                                         @foreach ($products as $product)
-                                            @if (in_array($product->category_id, $cat) == 1 &&  $product->status >= 4)
+                                            @if (in_array($product->category_id, $cat) == 1 && $product->status == 3)
+
+                                                @include('admin.product.include.doing')
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="top-contact" role="tabpanel"
+                                    aria-labelledby="contact-top-tab">
+                                    <div class="row">
+                                        @foreach ($products as $product)
+                                            @if (in_array($product->category_id, $cat) == 1 && $product->status >= 4)
                                                 @include('admin.product.include.done')
                                             @endif
                                         @endforeach
@@ -137,27 +146,29 @@
                                 <div class="tab-pane fade show active" id="top-home" role="tabpanel"
                                     aria-labelledby="top-home-tab">
                                     <div class="row">
-                                            @foreach ($products as $product)
-                                                @if(in_array($product->category_id, $cat) == 1 &&  $product->status == 4)
-                                                    @include('admin.product.include.all')
-                                                @endif
-                                            @endforeach
+                                        @foreach ($products as $product)
+                                            @if (in_array($product->category_id, $cat) == 1 && $product->status == 4)
+                                                @include('admin.product.include.all')
+                                            @endif
+                                        @endforeach
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="top-profile" role="tabpanel" aria-labelledby="profile-top-tab">
+                                <div class="tab-pane fade" id="top-profile" role="tabpanel"
+                                    aria-labelledby="profile-top-tab">
                                     <div class="row">
                                         @foreach ($products as $product)
-                                            @if (in_array($product->category_id, $cat) == 1 &&  $product->status == 5)
+                                            @if (in_array($product->category_id, $cat) == 1 && $product->status == 5)
 
                                                 @include('admin.product.include.doing')
                                             @endif
                                         @endforeach
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="top-contact" role="tabpanel" aria-labelledby="contact-top-tab">
+                                <div class="tab-pane fade" id="top-contact" role="tabpanel"
+                                    aria-labelledby="contact-top-tab">
                                     <div class="row">
                                         @foreach ($products as $product)
-                                            @if (in_array($product->category_id, $cat) == 1 &&  $product->status >= 6)
+                                            @if (in_array($product->category_id, $cat) == 1 && $product->status >= 6)
                                                 @include('admin.product.include.done')
                                             @endif
                                         @endforeach
@@ -169,33 +180,72 @@
                                 <div class="tab-pane fade show active" id="top-home" role="tabpanel"
                                     aria-labelledby="top-home-tab">
                                     <div class="row">
-                                            @foreach ($products as $product)
-                                                @if(in_array($product->category_id, $cat) == 1 &&  $product->status == 0)
-                                                    @include('admin.product.include.all')
-                                                @endif
-                                            @endforeach
+                                        @foreach ($products as $product)
+                                            @if (in_array($product->category_id, $cat) == 1 && $product->status == 0)
+                                                @include('admin.product.include.all')
+                                            @endif
+                                        @endforeach
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="top-profile" role="tabpanel" aria-labelledby="profile-top-tab">
+                                <div class="tab-pane fade" id="top-profile" role="tabpanel"
+                                    aria-labelledby="profile-top-tab">
                                     <div class="row">
                                         @foreach ($products as $product)
-                                            @if (in_array($product->category_id, $cat) == 1 &&  $product->status > 0)
+                                            @if (in_array($product->category_id, $cat) == 1 && $product->status > 0)
                                                 @include('admin.product.include.doing')
                                             @endif
                                         @endforeach
                                     </div>
                                 </div>
-                                <div class="tab-pane fade" id="top-contact" role="tabpanel" aria-labelledby="contact-top-tab">
+                                <div class="tab-pane fade" id="top-contact" role="tabpanel"
+                                    aria-labelledby="contact-top-tab">
                                     <div class="row">
                                         @foreach ($products as $product)
-                                            @if (in_array($product->category_id, $cat) == 1 &&  $product->status >= 6)
+                                            @if (in_array($product->category_id, $cat) == 1 && $product->status >= 6)
                                                 @include('admin.product.include.done')
                                             @endif
                                         @endforeach
                                     </div>
                                 </div>
                             </div>
-                        @endif
+                        @else
+                            <div class="tab-content" id="top-tabContent">
+                                <div class="tab-pane fade show active" id="top-home" role="tabpanel"
+                                    aria-labelledby="top-home-tab">
+                                    <div class="row">
+                                        @foreach ($products as $product)
+                                            @if (in_array($product->category_id, $cat) == 1 && $product->status == 0)
+                                                @include('admin.product.include.all')
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="top-profile" role="tabpanel"
+                                    aria-labelledby="profile-top-tab">
+                                    <div class="row">
+                                        @foreach ($products as $product)
+                                            @if (in_array($product->category_id, $cat) == 1 && $product->status == 1)
+
+                                                @include('admin.product.include.doing')
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+
+                                <div class="tab-pane fade" id="top-contact" role="tabpanel"
+                                    aria-labelledby="contact-top-tab">
+                                    <div class="row">
+                                        @foreach ($products as $product)
+                                            @if (in_array($product->category_id, $cat) == 1 && $product->status >= 2)
+                                                @include('admin.product.include.done')
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </div>
+
+                            </div>
+                            @endif
                     </div>
                 </div>
             </div>

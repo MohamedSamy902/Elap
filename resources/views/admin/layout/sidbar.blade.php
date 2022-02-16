@@ -46,6 +46,11 @@
                                         <a href="{{ route('category.create') }}">اضافه قسم</a>
                                     </li>
                                 @endcan
+                                @can('اضافه قسم')
+                                    <li>
+                                        <a href="{{ route('permissioncat.create') }}">صلاحيات الاقسام</a>
+                                    </li>
+                                @endcan
                             </ul>
                         </li>
                     @endcan
@@ -70,18 +75,18 @@
                     @endcan
 
 
-                    @can('مستخدمين')
+                    @can('موظفين')
 
                         <li class="dropdown">
                             <a class="nav-link menu-title" href="javascript:void(0)">
                                 <i data-feather="airplay"></i>
-                                <span>اضافه موظف</span>
+                                <span>الموظفين</span>
                             </a>
                             <ul class="nav-submenu menu-content">
                                 <li>
                                     <a href="{{ route('user.index') }}">عرض الموظفين</a>
                                 </li>
-                                @can('اضافه مستخدم')
+                                @can('اضافه موظف')
                                     <li>
                                         <a href="{{ route('user.create') }}">اضافه موظف</a>
                                     </li>
