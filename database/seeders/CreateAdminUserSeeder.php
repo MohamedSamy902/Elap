@@ -16,14 +16,13 @@ class CreateAdminUserSeeder extends Seeder
 */
     public function run()
     {
-        User::truncate();
-
         $roleadmin = Role::pluck("name");
         $rolle = json_decode($roleadmin);
         $cats = Category::all();
         $user = User::create([
             'name' => 'Mohamed Samy',
             'email' => 'admin@admin.com',
+            'phone' => 01150100104,
             'password' => bcrypt('123456'),
             'roles_name' => ["admin"],
             'status' => 'مفعل',

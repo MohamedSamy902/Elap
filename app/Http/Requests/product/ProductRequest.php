@@ -24,7 +24,18 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'min:2|max:50|string',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'يجب كتابه اسم القسم',
+            'name.min' => 'يجب كتابه حرفين علي الاقل',
+            'name.max' => 'عدد الحروف تجاوز العدد المطلوب',
+            'name.string' => 'يجب ان يكون القسم اسم',
+            'name.unique' => 'هذا القسم موجود بالفعل',
         ];
     }
 }

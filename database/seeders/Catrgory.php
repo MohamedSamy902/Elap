@@ -14,7 +14,7 @@ class Catrgory extends Seeder
      */
     public function run()
     {
-        Category::truncate();
+        
         Category::create([
             'name' => 'انتمينر',
         ]);

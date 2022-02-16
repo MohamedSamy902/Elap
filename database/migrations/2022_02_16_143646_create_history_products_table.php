@@ -20,7 +20,7 @@ class CreateHistoryProductsTable extends Migration
             $table->integer('user_id');
             $table->integer('product_id');
             $table->timestamps();
-            $table->timestamp('end_at')->default(null);
+            $table->date('end_at')->default(NULL);
             $table->softDeletes();
         });
     }

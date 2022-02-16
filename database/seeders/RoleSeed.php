@@ -14,7 +14,7 @@ class RoleSeed extends Seeder
      */
     public function run()
     {
-        Role::truncate();
+        
         Role::create([
             'name' => 'استقبال',
         ]);
