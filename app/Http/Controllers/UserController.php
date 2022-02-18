@@ -19,7 +19,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $users = User::where('roles_name', '!=', '["\u0639\u0645\u064a\u0644"]')->orderBy('id','DESC')->paginate(5);
-        
+
         return view('admin.users.index',compact('users'))
         ->with('i', ($request->input('page', 1) - 1) * 5);
     }

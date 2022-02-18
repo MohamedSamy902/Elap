@@ -22,8 +22,8 @@
                                             <div class="row">
                                                 <div class="col-10">
                                                     <label>رقم الهاتف</label>
-                                                    <input required class="form-control" type="text" placeholder="Project name *"
-                                                        name="phone" id="phone">
+                                                    <input required class="form-control" type="text"
+                                                        placeholder="Project name *" name="phone" id="phone">
                                                 </div>
                                                 <div class="col-2" style="cursor: pointer">
                                                     <label>بحث</label><br>
@@ -45,8 +45,8 @@
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label>البريد الالكتروني</label>
-                                            <input required name="email" id="emailCoustmer" class="form-control" type="text"
-                                                placeholder="Enter project Rate">
+                                            <input required name="email" id="emailCoustmer" class="form-control"
+                                                type="text" placeholder="Enter project Rate">
                                             <input required name="user_id" id="user_id" type="hidden">
                                         </div>
                                     </div>
@@ -64,8 +64,8 @@
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label>اسم المنتج</label>
-                                            <input required name="name_product" class="datepicker-here form-control" type="text"
-                                                data-language="en">
+                                            <input required name="name_product" class="datepicker-here form-control"
+                                                type="text" data-language="en">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
@@ -89,9 +89,10 @@
                                 <div class="element row" id="div_1">
 
                                     <div class="col-sm-4">
-                                        <div class="mb-3" >
+                                        <div class="mb-3">
                                             <label>السريال</label>
-                                            <input type="text" name="serial_number[]" class="datepicker-here form-control" placeholder="Enter your skill" id="txt_1" />&nbsp;
+                                            <input type="text" name="serial_number[]" class="datepicker-here form-control"
+                                                placeholder="Enter your skill" id="txt_1" />&nbsp;
 
                                         </div>
                                     </div>
@@ -154,7 +155,7 @@
             if (phone == '') {} else {
                 $.ajax({
                     type: 'POST',
-                    url: '/admin/testajax/' + phone + '/',
+                    url: '/admin/testajax/' + phone + '',
                     data: {
                         "_token": "{{ csrf_token() }}",
                         phone: phone,
@@ -232,37 +233,38 @@
         });
     </script>
     <script>
-            $(document).ready(function () {
-                // Add new element
-                $(".add").click(function () {
-                    // Finding total number of elements added
-                    var total_element = $(".element").length;
+        $(document).ready(function() {
+            // Add new element
+            $(".add").click(function() {
+                // Finding total number of elements added
+                var total_element = $(".element").length;
 
-                    // last <> with element class id
-                    var lastid = $(".element:last").attr("id");
-                    var split_id = lastid.split("_");
-                    var nextindex = Number(split_id[1]) + 1;
+                // last <> with element class id
+                var lastid = $(".element:last").attr("id");
+                var split_id = lastid.split("_");
+                var nextindex = Number(split_id[1]) + 1;
 
-                    // Adding new div container after last occurance of element class
-                    $(".element:last").after(
+                // Adding new div container after last occurance of element class
+                $(".element:last").after(
 
-                        "<div class='element row' id='div_" + nextindex + "'></div>"
-                    );
+                    "<div class='element row' id='div_" + nextindex + "'></div>"
+                );
 
-                    // Adding element to <div>
-                    $("#div_" + nextindex).append(
-                        '<div class="col-sm-4"><div class="mb-3"><label>السريال</label><input  type="text"name="serial_number[]"class="datepicker-here form-control" placeholder="Enter your skill"/>&nbsp;</div></div> <div class="col-sm-4"><div class="mb-3"><label>المشتملات</label><input  name="product_inclusions[]" class="datepicker-here form-control" type="text" data-language="en" /> </div> </div> <div " class="col-sm-4"> <span id="remove_'+nextindex+'" class="remove">X</span> </div></div></div>' );
-                });
-
-                // Remove element
-                $(".row").on("click", ".remove", function () {
-                    var id = this.id;
-                    var split_id = id.split("_");
-                    var deleteindex = split_id[1];
-                    console.log(id);
-                    // Remove <div> with id
-                    $("#div_" + deleteindex).remove();
-                });
+                // Adding element to <div>
+                $("#div_" + nextindex).append(
+                    '<div class="col-sm-4"><div class="mb-3"><label>السريال</label><input  type="text"name="serial_number[]"class="datepicker-here form-control" placeholder="Enter your skill"/>&nbsp;</div></div> <div class="col-sm-4"><div class="mb-3"><label>المشتملات</label><input  name="product_inclusions[]" class="datepicker-here form-control" type="text" data-language="en" /> </div> </div> <div " class="col-sm-4"> <span id="remove_' +
+                    nextindex + '" class="remove">X</span> </div></div></div>');
             });
-        </script>
+
+            // Remove element
+            $(".row").on("click", ".remove", function() {
+                var id = this.id;
+                var split_id = id.split("_");
+                var deleteindex = split_id[1];
+                console.log(id);
+                // Remove <div> with id
+                $("#div_" + deleteindex).remove();
+            });
+        });
+    </script>
 @endsection

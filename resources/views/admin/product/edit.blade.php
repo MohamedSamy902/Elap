@@ -1,6 +1,6 @@
 @extends('admin.layout.master')
 @section('css')
-<link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/assets/css/dropzone.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/assets/css/dropzone.css">
 @endsection
 @section('content')
     @include('admin.alert.notfications')
@@ -14,14 +14,17 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="form theme-form">
-                                <h4 style="display: flex;justify-content: center;padding: 10px;margin-bottom: 50px;box-shadow: 0px 5px 30px -21px;">بيانات العميل</h4>
+                                <h4
+                                    style="display: flex;justify-content: center;padding: 10px;margin-bottom: 50px;box-shadow: 0px 5px 30px -21px;">
+                                    بيانات العميل</h4>
                                 <div class="row">
                                     <div class="col">
                                         <div class="mb-3">
                                             <div class="row">
                                                 <div class="col-12">
                                                     <label>رقم الهاتف</label>
-                                                    <input class="form-control" type="text" name="phone" id="phone" value="{{ $product->user->phone }}">
+                                                    <input class="form-control" type="text" name="phone" id="phone"
+                                                        value="{{ $product->user->phone }}">
                                                 </div>
                                                 {{-- <div class="col-2" style="cursor: pointer">
                                                     <label>بحث</label><br>
@@ -36,14 +39,17 @@
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label>اسم العميل</label>
-                                            <input id="coustmerName" class="form-control" type="text"  name="name" value="{{ $product->user->name }}">
+                                            <input id="coustmerName" class="form-control" type="text" name="name"
+                                                value="{{ $product->user->name }}">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label>البريد الالكتروني</label>
-                                            <input name="email" id="emailCoustmer" class="form-control" type="text" value="{{ $product->user->email }}">
-                                            <input name="user_id" id="user_id"  type="hidden" value="{{ $product->user->id }}">
+                                            <input name="email" id="emailCoustmer" class="form-control" type="text"
+                                                value="{{ $product->user->email }}">
+                                            <input name="user_id" id="user_id" type="hidden"
+                                                value="{{ $product->user->id }}">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
@@ -53,20 +59,24 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <h4 style="display: flex;justify-content: center;padding: 10px;margin-bottom: 50px;box-shadow: 0px 5px 30px -21px;margin-top: 60px;">بيانات منتج</h4>
+                                <h4
+                                    style="display: flex;justify-content: center;padding: 10px;margin-bottom: 50px;box-shadow: 0px 5px 30px -21px;margin-top: 60px;">
+                                    بيانات منتج</h4>
                                 <div class="row">
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label>اسم المنتج</label>
-                                            <input name="name_product" class="datepicker-here form-control" type="text" data-language="en" value="{{ $product->name_product }}">
+                                            <input name="name_product" class="datepicker-here form-control" type="text"
+                                                data-language="en" value="{{ $product->name_product }}">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label>القسم</label>
                                             <select class="form-select" name="category_id">
-                                                @foreach($categories as $category)
-                                                    <option {{ $category->id == $product->category_id ? "selected" : "" }} value="{{ $category->id }}"  >{{ $category->name }}</option>
+                                                @foreach ($categories as $category)
+                                                    <option {{ $category->id == $product->category_id ? 'selected' : '' }}
+                                                        value="{{ $category->id }}">{{ $category->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -74,7 +84,8 @@
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label>العطل</label>
-                                            <input name="damage" class="datepicker-here form-control" type="text" data-language="en" value="{{ $product->damage }}">
+                                            <input name="damage" class="datepicker-here form-control" type="text"
+                                                data-language="en" value="{{ $product->damage }}">
                                         </div>
                                     </div>
                                 </div>
@@ -82,19 +93,23 @@
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label>العدد</label>
-                                            <input name="count" class="datepicker-here form-control" type="text" data-language="en" value="{{ $product->count }}">
+                                            <input name="count" class="datepicker-here form-control" type="text"
+                                                data-language="en" value="{{ $product->count }}">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label>المشتملات</label>
-                                            <input name="product_inclusions" class="datepicker-here form-control" type="text" data-language="en" value="{{ $product->product_inclusions }}">
+                                            <input name="product_inclusions" class="datepicker-here form-control"
+                                                type="text" data-language="en"
+                                                value="{{ $product->product_inclusions }}">
                                         </div>
                                     </div>
                                     <div class="col-sm-4">
                                         <div class="mb-3">
                                             <label>السريال</label>
-                                            <input name="serial_number" class="datepicker-here form-control" type="text" data-language="en" value="{{ $product->serial_number }}" disabled>
+                                            <input name="serial_number" class="datepicker-here form-control" type="text"
+                                                data-language="en" value="{{ $product->serial_number }}" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -149,12 +164,12 @@
                         $('#user_id').val(data.id);
                         if (data.name && data.email && data.id) {
                             Swal.fire({
-                            position: 'top-start',
-                            icon: 'success',
-                            title: "تم العثور علي النتائج",
-                            timer: 2000
-                        })
-                        }else{
+                                position: 'top-start',
+                                icon: 'success',
+                                title: "تم العثور علي النتائج",
+                                timer: 2000
+                            })
+                        } else {
                             Swal.fire({
                                 position: 'top-start',
                                 icon: 'error',
@@ -169,8 +184,6 @@
                 });
             }
         });
-
-
     </script>
     <script>
         $.ajaxSetup({
@@ -181,19 +194,19 @@
 
         // Insert User
         $('#insertuser').click(function() {
-            let phone   = $('#phone').val();
-            let name    = $('#coustmerName').val();
-            let email   = $('#emailCoustmer').val();
-            let id      = $('#user_id').val();
-            var url = "{{URL('admin/updateuser/'.$product->user->id )}}";
+            let phone = $('#phone').val();
+            let name = $('#coustmerName').val();
+            let email = $('#emailCoustmer').val();
+            let id = $('#user_id').val();
+            var url = "{{ URL('admin/updateuser/' . $product->user->id) }}";
             $.ajax({
                 type: 'patch',
                 url: url,
                 data: {
-                    _token:'{{ csrf_token() }}',
+                    _token: '{{ csrf_token() }}',
                     phone: phone,
-                    name:name,
-                    email:email,
+                    name: name,
+                    email: email,
                 },
 
                 success: function(data) {
@@ -206,7 +219,7 @@
                         timer: 2000
                     })
                 },
-                error: function(data){
+                error: function(data) {
                     Swal.fire({
                         position: 'top-start',
                         icon: 'error',
@@ -218,6 +231,5 @@
             });
 
         });
-
     </script>
 @endsection

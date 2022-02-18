@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class PermissionCat extends Model
 {
     use SoftDeletes;
-    protected $_table    = 'permission_cat';
-    protected $_fillable = [
+    protected $table    = 'permission_cat';
+    protected $fillable = [
         'category_id',
         'user_id',
     ];
