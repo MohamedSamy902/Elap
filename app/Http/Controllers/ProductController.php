@@ -257,7 +257,7 @@ class ProductController extends Controller
         $data = [];
         $data['user_id'] = Auth::user()->id;
         $data['product_id'] = $id;
-        $data['point'] = 2;
+        $data['point'] = Auth::user()->point;
         Point::create($data);
         return redirect()->route('product.index')->with(['success' => 'تم بنجاح']);
     }

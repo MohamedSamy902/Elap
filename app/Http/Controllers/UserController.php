@@ -1,7 +1,7 @@
 <?php
 namespace App\Http\Controllers;
-use DB;
-use Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\HistoryProduct;
@@ -20,8 +20,7 @@ class UserController extends Controller
     {
         $users = User::where('roles_name', '!=', '["\u0639\u0645\u064a\u0644"]')->orderBy('id','DESC')->paginate(5);
 
-        return view('admin.users.index',compact('users'))
-        ->with('i', ($request->input('page', 1) - 1) * 5);
+        return view('admin.users.index',compact('users', 'i'));
     }
     /**
     * Show the form for creating a new resource.

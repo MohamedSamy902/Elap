@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
 
 @section('content')
-@include('admin.alert.notfications')
+    @include('admin.alert.notfications')
     <div class="container-fluid">
         <div class="page-header">
             <div class="row">
@@ -53,6 +53,12 @@
                                         <input class="form-control" type="text" placeholder="" name="phone">
                                     </div>
                                 </div>
+                                <div class="col-sm-6 col-md-12">
+                                    <div class="mb-3">
+                                        <label class="form-label">عدد النقط </label>
+                                        <input class="form-control" type="text" placeholder="" name="point">
+                                    </div>
+                                </div>
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <label class="form-label">كلمه السر</label>
@@ -63,7 +69,7 @@
                                     <div class="mb-3">
                                         <label class="form-label">دور الموظف</label>
                                         <select class="form-select" name="roles_name">
-                                            @foreach($roles as $role)
+                                            @foreach ($roles as $role)
                                                 <option value="{{ $role }}">{{ $role }}</option>
                                             @endforeach
                                         </select>
