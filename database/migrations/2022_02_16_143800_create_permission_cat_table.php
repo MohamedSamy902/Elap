@@ -14,7 +14,7 @@ class CreatePermissionCatTable extends Migration
     public function up()
     {
         Schema::create('permission_cat', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->integer('category_id');
             $table->integer('user_id');
             $table->timestamps();

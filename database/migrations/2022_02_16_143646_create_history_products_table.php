@@ -14,13 +14,13 @@ class CreateHistoryProductsTable extends Migration
     public function up()
     {
         Schema::create('history_products', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->string('serial_number');
             $table->string('status')->default(0);
             $table->integer('user_id');
             $table->integer('product_id');
             $table->timestamps();
-            $table->date('end_at')->default(NULL);
+            $table->date('end_at')->default(NULL)->nullable();
             $table->softDeletes();
         });
     }

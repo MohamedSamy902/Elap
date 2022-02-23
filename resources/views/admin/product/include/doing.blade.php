@@ -65,8 +65,14 @@
 
                     @can('تسليم المنتج')
                         <div class="col-xxl-6 col-lg-6 col-sm-6 text-center mt-5">
-                            <a class="btn btn-primary "
-                                href="{{ route('product.deliverytest', $product->id) }}">انتهاء</a>
+                            <a class="btn btn-primary " href="{{ route('product.delivery', $product->id) }}">
+                                @if (Auth::user()->roles_name[0] == 'fixed')
+                                    تحويل صيانه
+                                    متقدمه
+                                @else
+                                    انتهاء
+                                @endif
+                            </a>
                         </div>
                     @endcan
 
@@ -82,21 +88,20 @@
                     @endcan
 
                     @can('رفض منتج')
-
                         <div class="col-xxl-6 col-lg-6 text-center mt-5">
                             <a class="btn btn-primary " href="{{ route('product.filedfixed', $product->id) }}">مرفوض</a>
                         </div>
                     @endcan
 
                     @can('تم الاصلاح')
-
                         <div class="col-xxl-6 col-lg-6 text-center mt-5">
-                            <a class="btn btn-primary " href="{{ route('product.donefixed', $product->id) }}">تم الاصلاح </a>
+                            <a class="btn btn-primary " href="{{ route('product.donefixed', $product->id) }}">تم الاصلاح
+                            </a>
                         </div>
                     @endcan
 
-                    @can('اضافه ملاحظه للمنتج')
 
+                    @can('اضافه ملاحظه للمنتج')
                         <div class="col-xxl-6 col-lg-6 text-center mt-5">
                             <a class="btn btn-primary " href="#">اضافة تعليق</a>
                         </div>

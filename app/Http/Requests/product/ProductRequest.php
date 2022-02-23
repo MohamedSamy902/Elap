@@ -13,7 +13,7 @@ class ProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,18 +24,23 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'min:2|max:50|string',
+            'name_product'       => 'min:2|max:200|string|required',
+            'category_id'        => 'required|numeric',
+            'damage'             => 'string|nullable',
+            'serial_number'      => 'nullable',
+            // 'product_inclusions' => 'string|nullable',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => 'يجب كتابه اسم القسم',
-            'name.min' => 'يجب كتابه حرفين علي الاقل',
-            'name.max' => 'عدد الحروف تجاوز العدد المطلوب',
-            'name.string' => 'يجب ان يكون القسم اسم',
-            'name.unique' => 'هذا القسم موجود بالفعل',
+            'name_product.required' => 'يجب كتابه اسم المنتج',
+            'name_product.min' => 'يجب كتابه حرفين علي الاقل',
+            'name_product.max' => 'عدد الحروف تجاوز العدد المطلوب',
+            'name_product.string' => 'اسم المنتج غير صالح',
+
+            'category_id.required' => 'يجب كتابه اسم القسم',
         ];
     }
 }

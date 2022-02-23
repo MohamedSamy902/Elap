@@ -14,18 +14,23 @@ class RoleSeed extends Seeder
      */
     public function run()
     {
-        
+
+
         Role::create([
-            'name' => 'استقبال',
+            'name' => 'recepion',
         ]);
         Role::create([
-            'name' => 'تست',
+            'name' => 'eneshial_test',
         ]);
         Role::create([
-            'name' => 'صيانه',
+            'name' => 'fixed',
         ]);
         Role::create([
-            'name' => 'صيانه متقدمه',
+            'name' => 'advanced_fixed',
         ]);
+        Role::create([
+            'name' => 'final_test',
+        ]);
+
     }
 }

@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Auth::routes();
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function() {
 
+    Route::get('/test', 'App\Http\Controllers\AdminController@index');
     Route::post('testajax/{phone}', 'App\Http\Controllers\UserController@ajaxtest');
 
     Route::post('insertuser', 'App\Http\Controllers\UserController@insertuser');
@@ -29,8 +30,11 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function() {
 
     // Start Product
     Route::resource('product', 'App\Http\Controllers\ProductController');
-    Route::get('product/{id}/receptionTest', 'App\Http\Controllers\ProductController@receptionFixes')->name('product.receptiontest');
-    Route::get('product/{id}/deliveryTest', 'App\Http\Controllers\ProductController@deliveryFixed')->name('product.deliverytest');
+    // استلام للكل
+    Route::get('product/{id}/reception', 'App\Http\Controllers\ProductController@reception')->name('product.reception');
+    //  تسليم للكل
+    Route::get('product/{id}/delivery', 'App\Http\Controllers\ProductController@delivery')->name('product.delivery');
+
     Route::get('product/{id}/doneFixed', 'App\Http\Controllers\ProductController@doneFixed')->name('product.donefixed');
     Route::get('product/{id}/filedfixed', 'App\Http\Controllers\ProductController@filedFixed')->name('product.filedfixed');
     Route::get('product/{id}/compleat', 'App\Http\Controllers\ProductController@compleat')->name('product.compleat');
@@ -52,3 +56,6 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function() {
     Route::resource('roles','App\Http\Controllers\RoleController');
     Route::resource('permissioncat','App\Http\Controllers\PermissionCatController');
 });
+
+Route::get('/', 'App\Http\Controllers\FrontController@index');
+

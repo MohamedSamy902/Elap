@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
-use DB;
+use Illuminate\Support\Facades\DB;
 class RoleController extends Controller
 {
     /**
@@ -26,9 +26,9 @@ class RoleController extends Controller
     */
     public function index(Request $request)
     {
-        $roles = Role::orderBy('id','DESC')->paginate(5);
-        return view('admin.roles.index',compact('roles'))
-        ->with('i', ($request->input('page', 1) - 1) * 5);
+        $roles = Role::orderBy('id','DESC')->get();
+        $i = 0;
+        return view('admin.roles.index',compact('roles', 'i'));
     }
     /**
     * Show the form for creating a new resource.

@@ -19,6 +19,7 @@ class Point extends Model
     protected $fillable = [
         'user_id',
         'product_id',
+        'status'
     ];
 
     public function user(){

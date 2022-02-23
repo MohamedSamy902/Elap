@@ -28,7 +28,7 @@ class CreateAdminUserSeeder extends Seeder
             'status' => 'مفعل',
         ]);
         if (in_array('admin', $rolle) == 0) {
-            $role = Role::create(['name' => 'مدير']);
+            $role = Role::create(['name' => 'admin']);
             $permissions = Permission::pluck('id','id')->all();
             $role->syncPermissions($permissions);
             $user->assignRole([$role->id]);

@@ -7,7 +7,7 @@
                     <div class="row">
                         <div class="col-md-6 p-0">
                             <ul class="nav nav-tabs border-tab" id="top-tab" role="tablist">
-                                @if (Auth::user()->roles_name[0] != 'استقبال')
+                                @if (Auth::user()->roles_name[0] != 'recepion')
                                     <li class="nav-item">
                                         <a class="nav-link active" id="top-home-tab" data-bs-toggle="tab" href="#top-home"
                                             role="tab" aria-controls="top-home" aria-selected="true">
@@ -33,8 +33,7 @@
                                     </li>
                                 @else
                                     <li class="nav-item">
-                                        <a
-                                            class="nav-link active" id="top-home-tab" data-bs-toggle="tab" href="#top-home"
+                                        <a class="nav-link active" id="top-home-tab" data-bs-toggle="tab" href="#top-home"
                                             role="tab" aria-controls="top-home" aria-selected="true">
                                             <i data-feather="target"></i>
                                             الكل
@@ -70,7 +69,7 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        @if (Auth::user()->roles_name[0] == 'تست')
+                        @if (Auth::user()->roles_name[0] == 'eneshial_test')
                             <div class="tab-content" id="top-tabContent">
                                 <div class="tab-pane fade show active" id="top-home" role="tabpanel"
                                     aria-labelledby="top-home-tab">
@@ -88,7 +87,6 @@
                                     <div class="row">
                                         @foreach ($products as $product)
                                             @if (in_array($product->category_id, $cat) == 1 && $product->status == 1)
-
                                                 @include('admin.product.include.doing')
                                             @endif
                                         @endforeach
@@ -107,7 +105,7 @@
                                 </div>
 
                             </div>
-                        @elseif(Auth::user()->roles_name[0] == 'صيانه')
+                        @elseif(Auth::user()->roles_name[0] == 'fixed')
                             <div class="tab-content" id="top-tabContent">
                                 <div class="tab-pane fade show active" id="top-home" role="tabpanel"
                                     aria-labelledby="top-home-tab">
@@ -124,7 +122,6 @@
                                     <div class="row">
                                         @foreach ($products as $product)
                                             @if (in_array($product->category_id, $cat) == 1 && $product->status == 3)
-
                                                 @include('admin.product.include.doing')
                                             @endif
                                         @endforeach
@@ -141,7 +138,7 @@
                                     </div>
                                 </div>
                             </div>
-                        @elseif(Auth::user()->roles_name[0] == 'صيانه متقدمه')
+                        @elseif(Auth::user()->roles_name[0] == 'advanced_fixed')
                             <div class="tab-content" id="top-tabContent">
                                 <div class="tab-pane fade show active" id="top-home" role="tabpanel"
                                     aria-labelledby="top-home-tab">
@@ -158,7 +155,6 @@
                                     <div class="row">
                                         @foreach ($products as $product)
                                             @if (in_array($product->category_id, $cat) == 1 && $product->status == 5)
-
                                                 @include('admin.product.include.doing')
                                             @endif
                                         @endforeach
@@ -214,7 +210,7 @@
                                     aria-labelledby="top-home-tab">
                                     <div class="row">
                                         @foreach ($products as $product)
-                                            @if (in_array($product->category_id, $cat) == 1 && $product->status == 0)
+                                            @if (in_array($product->category_id, $cat) == 1)
                                                 @include('admin.product.include.all')
                                             @endif
                                         @endforeach
@@ -225,8 +221,7 @@
                                     aria-labelledby="profile-top-tab">
                                     <div class="row">
                                         @foreach ($products as $product)
-                                            @if (in_array($product->category_id, $cat) == 1 && $product->status == 1)
-
+                                            @if (in_array($product->category_id, $cat) == 1)
                                                 @include('admin.product.include.doing')
                                             @endif
                                         @endforeach
@@ -237,7 +232,7 @@
                                     aria-labelledby="contact-top-tab">
                                     <div class="row">
                                         @foreach ($products as $product)
-                                            @if (in_array($product->category_id, $cat) == 1 && $product->status >= 2)
+                                            @if (in_array($product->category_id, $cat) == 1)
                                                 @include('admin.product.include.done')
                                             @endif
                                         @endforeach
@@ -245,7 +240,7 @@
                                 </div>
 
                             </div>
-                            @endif
+                        @endif
                     </div>
                 </div>
             </div>

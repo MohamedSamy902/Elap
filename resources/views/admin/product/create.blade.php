@@ -106,7 +106,7 @@
                                     </div>
 
                                     <div class="col-sm-4">
-                                        <span class="add">Add</span>
+                                        <span class="add btn btn-primary">اضافة</span>
                                     </div>
 
 
@@ -155,7 +155,8 @@
             if (phone == '') {} else {
                 $.ajax({
                     type: 'POST',
-                    url: '/admin/testajax/' + phone + '',
+                    url: '/admin/testajax/' + phone,
+
                     data: {
                         "_token": "{{ csrf_token() }}",
                         phone: phone,
@@ -172,6 +173,7 @@
                                 timer: 2000
                             })
                         } else {
+                            console.log(data);
                             Swal.fire({
                                 position: 'top-start',
                                 icon: 'error',

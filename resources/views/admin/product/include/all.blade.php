@@ -56,23 +56,23 @@
                     @endcan
 
                     @can('حذف منتج')
-                    @if($product->status == 0 || $product->status == 9)
-                        <div class="col-xxl-6 col-lg-6 col-sm-6 text-center mt-5">
-                            <a class="btn btn-primary " href="#">حذف</a>
-                        </div>
+                        @if ($product->status == 0 || $product->status == 9)
+                            <div class="col-xxl-6 col-lg-6 col-sm-6 text-center mt-5">
+                                <a class="btn btn-primary " href="#">حذف</a>
+                            </div>
                         @endif
                     @endcan
 
                     @can('استلام المنتج')
                         <div class="col-xxl-6 col-lg-6 col-sm-6 text-center mt-5">
                             <a class="btn btn-primary "
-                                href="{{ route('product.receptiontest', $product->id) }}">الاستلام</a>
+                                href="{{ route('product.reception', $product->id) }}">الاستلام</a>
                         </div>
                     @endcan
 
 
                     @can('تسليم العميل')
-                        @if($product->status == 7 || $product->status == 8)
+                        @if ($product->status == 7 || $product->status == 8)
                             <div class="col-xxl-6 col-lg-6 col-sm-6 text-center mt-5">
                                 <a class="btn btn-primary " href="#">تسليم
                                     العميل</a>
@@ -88,7 +88,6 @@
                     @endcan
 
                     @can('اضافه ملاحظه للمنتج')
-
                         <div class="col-xxl-6 col-lg-6 text-center mt-5 mb-5">
                             <a class="btn btn-primary " href="#">اضافة تعليق</a>
                         </div>

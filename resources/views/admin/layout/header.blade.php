@@ -37,4 +37,4 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/assets/css/responsive.css">
     @yield('css')
   </head>
-  <body class="rtl">
+<body class="rtl dark-only">

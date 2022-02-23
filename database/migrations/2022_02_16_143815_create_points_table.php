@@ -14,9 +14,10 @@ class CreatePointsTable extends Migration
     public function up()
     {
         Schema::create('points', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
             $table->integer('user_id');
             $table->integer('product_id');
+            $table->string('status')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -11,6 +11,7 @@ use App\Models\Point;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
+use App\Http\Requests\product\ProductRequest;
 
 class ProductController extends Controller
 {
@@ -61,9 +62,9 @@ class ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        // try {
+        try {
             // Get Coustmer With Phone Nymber
             $costmer = User::where('phone', '=', $request->phone)->count();
             // Check This Coustmer Is Exiest Or No
@@ -118,10 +119,10 @@ class ProductController extends Controller
 
             return redirect()->route('product.create')->with(['success' => 'تم حفط المنتج بنجاح']);
 
-        // } catch (\Exception $ex) {
-        //     return $ex;
-        //     return redirect()->route('product.create')->with(['error' => 'يرجي المحاوله مره اخري']);
-        // }
+        } catch (\Exception $ex) {
+            return $ex;
+            return redirect()->route('product.create')->with(['error' => 'يرجي المحاوله مره اخري']);
+        }
     }
 
     /**
@@ -159,30 +160,19 @@ class ProductController extends Controller
     public function update(Request $request,  $id)
     {
         try {
+
             $product = Product::find($id);
-            // Get Coustmer With Phone Nymber
-            $costmer = User::where('phone', '=', $request->phone)->count();
-            // Check This Coustmer Is Exiest Or No
-            if ($costmer !== 0) {
-                // Get Count Requrd
-                $count = $request->count;
-                    // Inser Only Prodact
-                    // Except User Data
-                    $data = $request->except(['name', 'phone', 'email']);
-                    // Get User Id
-                    $userId = $request->user_id;
-                    // Get Coustmer Id
-                    $data['customers_id'] = $userId;
-                    // Insert Serial Number
-                    // Insert Prodact
-                    $status = $product->fill($data)->save();
-            }else {
-                return redirect()->route('product.create')->with(['error' => 'يرجي اضافه العميل اولا']);
-            }
+            // Get User Id
+
+            $data = $request->all();
+            $userId = $request->user_id;
+
+            $data['customers_id'] = $userId;
+            $product->fill($data)->save();
 
             return redirect()->route('product.index')->with(['success' => 'تم التعديل بنجاح']);
-
         } catch (\Exception $ex) {
+
             return redirect()->route('product.create')->with(['error' => 'يرجي المحاوله مره اخري']);
         }
     }
@@ -197,40 +187,47 @@ class ProductController extends Controller
     {
         //
     }
-    public function receptionFixed($id)
-    {
 
+    // استلام المنتج لكل المستخدمين و فعل ما يمكن فعله حسب و ظيفه كل موظف
+    public function reception($id)
+    {
         $product = Product::find($id);
-        if(Auth::user()->roles_name[0] == 'تست'){
+        if(Auth::user()->roles_name[0] == 'eneshial_test'){
             $data_product['status'] = 1;
             $product->fill($data_product)->save();
-        }elseif (Auth::user()->roles_name[0] == 'صيانه') {
+        }elseif (Auth::user()->roles_name[0] == 'fixed') {
             $data_product['status'] = 3;
             $product->fill($data_product)->save();
-        }elseif (Auth::user()->roles_name[0] == 'صيانه متقدمه') {
+        }elseif (Auth::user()->roles_name[0] == 'advanced_fixed') {
             $data_product['status'] = 5;
+            $product->fill($data_product)->save();
+        }elseif (Auth::user()->roles_name[0] == 'final_test') {
+            $data_product['status'] = 9;
             $product->fill($data_product)->save();
         }
         // Insert History Product
-        $history = history(1, Auth::user()->id, $product->id, $product->serial_number);
+        history(1, Auth::user()->id, $product->id, $product->serial_number);
 
         return redirect()->route('product.index')->with(['success' => 'تم بنجاح']);
     }
 
-    public function deliveryFixed($id)
+    public function delivery($id)
     {
         $product = Product::find($id);
 
         $history = $product->history_products->last();
         if ($history->status == 1 && $history->product_id == $id && $history->end_at == NULL) {
-            if(Auth::user()->roles_name[0] == 'تست'){
+            if(Auth::user()->roles_name[0] == 'eneshial_test'){
                 $data_product['status'] = 2;
                 $product->fill($data_product)->save();
-            }elseif (Auth::user()->roles_name[0] == 'صيانه') {
+            }elseif (Auth::user()->roles_name[0] == 'fixed') {
                 $data_product['status'] = 4;
                 $product->fill($data_product)->save();
-            }elseif (Auth::user()->roles_name[0] == 'صيانه متقدمه') {
+            }elseif (Auth::user()->roles_name[0] == 'advanced_fixed') {
                 $data_product['status'] = 6;
+                $product->fill($data_product)->save();
+            }elseif (Auth::user()->roles_name[0] == 'final_test') {
+                $data_product['status'] = 10;
                 $product->fill($data_product)->save();
             }
 
@@ -242,7 +239,7 @@ class ProductController extends Controller
 
             return redirect()->route('product.index')->with(['success' => 'تم بنجاح']);
         }
-        return redirect()->route('product.create')->with(['error' => 'يرجي المحاوله مره اخري']);
+        // return redirect()->route('product.create')->with(['error' => 'يرجي المحاوله مره اخري']);
     }
 
     public function doneFixed($id)
@@ -250,18 +247,28 @@ class ProductController extends Controller
         $product = Product::find($id);
         $data_product['status'] = 8;
         $product->fill($data_product)->save();
-        $history = history(1, Auth::user()->id, $product->id, $product->serial_number);
+
+        $history = $product->history_products->last();
+        $data_history['status'] = 2;
+        $data_history['end_at'] = NOW();
+        $history->fill($data_history)->save();
+
+
+        $data = [];
+        $data['user_id'] = Auth::user()->id;
+        $data['product_id'] = $id;
+        $data['point'] = 2;
+        Point::create($data);
         return redirect()->route('product.index')->with(['success' => 'تم بنجاح']);
     }
 
     public function filedFixed($id)
     {
-
         $product = Product::find($id);
         $data_product['status'] = 7;
         $product->fill($data_product)->save();
-
-        $history = history(1, Auth::user()->id, $product->id, $product->serial_number);
+        $history = $product->history_products->last();
+        history(1, Auth::user()->id, $product->id, $product->serial_number);
 
         return redirect()->route('product.index')->with(['success' => 'تم بنجاح']);
     }
@@ -273,13 +280,11 @@ class ProductController extends Controller
         $data_product['status'] = 9;
         $product->fill($data_product)->save();
 
-        $history = history(1, Auth::user()->id, $product->id, $product->serial_number);
+        history(1, Auth::user()->id, $product->id, $product->serial_number);
 
-        $data = [];
-        $data['user_id'] = Auth::user()->id;
-        $data['product_id'] = $id;
-        $data['point'] = 2;
-        Point::create($data);
+
+        Point::where('product_id', '=', $id);
+
         return redirect()->route('product.index')->with(['success' => 'تم بنجاح']);
     }
 

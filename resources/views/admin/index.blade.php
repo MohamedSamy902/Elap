@@ -50,7 +50,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('admin') }}/assets/css/responsive.css">
 </head>
 
-<body class="rtl">
+<body class="rtl dark-only">
     <!-- Loader starts-->
     <div class="loader-wrapper">
         <div class="theme-loader">
