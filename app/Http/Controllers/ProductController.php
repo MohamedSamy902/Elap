@@ -23,10 +23,10 @@ class ProductController extends Controller
 
     // function __construct()
     // {
-    //     $this->middleware('permission:role-list|role-create|role-edit|role-delete', ['only' => ['index','store']]);
-    //     $this->middleware('permission:role-create', ['only' => ['create','store']]);
-    //     $this->middleware('permission:role-edit', ['only' => ['edit','update']]);
-    //     $this->middleware('permission:role-delete', ['only' => ['destroy']]);
+    //     $this->middleware('permission:', ['only' => ['index','store']]);
+    //     $this->middleware('permission:', ['only' => ['create','store']]);
+    //     $this->middleware('permission:', ['only' => ['edit','update']]);
+    //     $this->middleware('permission:', ['only' => ['destroy']]);
     // }
 
 
@@ -74,19 +74,26 @@ class ProductController extends Controller
 
                 // return COUNT($count);
                 for ($i=0; $i < $count; $i++) {
-
-                    // Inser Only Prodact
                     // Except User Data
                     $data = $request->except(['name', 'phone', 'email']);
-                    // return $data['product_inclusions'][$i];
                     // Get User Id
                     $customers_id = $request->user_id;
                     // Get Coustmer Id
                     $data['customers_id'] = $customers_id;
                     $data['count'] = 1;
-                    $data['product_inclusions'] = $request->product_inclusions[$i];
                     $data['user_id'] = Auth::user()->id;
-                    // Insert Prodact
+
+                    if ($data['product_inclusions'][$i] == '') {
+                        $data['product_inclusions'] = 'لا يوجود';
+                    }else {
+                        $data['product_inclusions'] = $request->product_inclusions[$i];
+                    }
+                    \var_dump($request->damage);
+                    if ($data['damage'][$i] == '') {
+                        $data['damage'] = 'غير معروف';
+                    }else {
+                        $data['damage'] = $request->damage[$i];
+                    }
 
                     // Insert Serial Number
                     if ($request->serial_number[$i] == "") {

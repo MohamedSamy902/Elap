@@ -1,11 +1,9 @@
 <header class="main-nav">
     <div class="sidebar-user text-center">
-        <a  class="setting-primary"
-            href="{{ route('user.edit', Auth::user()->id) }}">
-                <i data-feather="settings"></i>
+        <a class="setting-primary" href="{{ route('user.edit', Auth::user()->id) }}">
+            <i data-feather="settings"></i>
         </a>
-        <img    class="img-90 rounded-circle"
-                src="{{ asset('admin') }}/assets/images/dashboard/1.png" alt="">
+        <img class="img-90 rounded-circle" src="{{ asset('admin') }}/assets/images/dashboard/1.png" alt="">
         <div class="badge-bottom">
             <span class="badge badge-primary">{{ Auth::user()->roles_name[0] }}</span>
         </div>
@@ -31,8 +29,7 @@
                     </li>
                     @can('الاقسام')
                         <li class="dropdown">
-                            <a  class="nav-link menu-title"
-                            href="javascript:void(0)">
+                            <a class="nav-link menu-title" href="javascript:void(0)">
                                 <i data-feather="home"></i>
                                 <span>الاقسام</span>
                             </a>
@@ -48,7 +45,10 @@
                                 @endcan
                                 @can('اضافه قسم')
                                     <li>
-                                        <a href="{{ route('permissioncat.create') }}">صلاحيات الاقسام</a>
+                                        <a href="{{ route('permissioncat.index') }}">صلاحيات </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ route('permissioncat.create') }}">اضافه موظف للقسم</a>
                                     </li>
                                 @endcan
                             </ul>
@@ -107,7 +107,6 @@
                                     <a href="{{ route('product.index') }}">عرض المنتجات</a>
                                 </li>
                                 @can('اضافه منتج')
-
                                     <li>
                                         <a href="{{ route('product.create') }}">اضافه منتج</a>
                                     </li>
@@ -118,8 +117,7 @@
 
                     @can('العملاء')
                         <li class="dropdown">
-                            <a  class="nav-link menu-title"
-                            href="javascript:void(0)">
+                            <a class="nav-link menu-title" href="javascript:void(0)">
                                 <i data-feather="home"></i>
                                 <span>العملاء</span>
                             </a>

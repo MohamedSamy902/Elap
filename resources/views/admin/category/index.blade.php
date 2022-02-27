@@ -9,9 +9,13 @@
                     <h3>الاقسام الرئيسية</h3>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="index.html">الرئيسية</a>
+                            <a href="{{ url('/admin') }}">الرئيسية</a>
                         </li>
-                        <li class="breadcrumb-item active">الاقسام</li>
+                        <li class="breadcrumb-item active">
+                            <a href="{{ route('category.index') }}">
+                                الاقسام
+                            </a>
+                        </li>
                     </ol>
                 </div>
                 <div class="col-sm-6">
@@ -19,7 +23,7 @@
                     <div class="bookmark">
                         <ul>
                             <li>
-                                <a href="{{ route('category.create') }}" >
+                                <a href="{{ route('category.create') }}">
                                     <i data-feather="plus"></i>
                                 </a>
                             </li>
@@ -52,14 +56,13 @@
 
                                 <tbody>
                                     @foreach ($categories as $category)
-
                                         <tr>
                                             <td>{{ $category->id }}</td>
                                             <td>
                                                 <a href="{{ route('category.show', $category->id) }}">
-                                             {{ $category->name }}
-                                             </a>
-                                        </td>
+                                                    {{ $category->name }}
+                                                </a>
+                                            </td>
                                             <td>
                                                 <a href="{{ route('category.edit', $category->id) }}"><i
                                                         class="icofont icofont-ui-edit"></i></a>

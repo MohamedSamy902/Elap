@@ -5,9 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\category\CategoryRequest;
+use Spatie\Permission\Models\Permission;
 
 class CategoryController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:الاقسام', ['only' => ['index']]);
+        $this->middleware('permission:اضافه قسم', ['only' => [ 'create','store']]);
+        $this->middleware('permission:تعديل قسم', ['only' => ['edit','update']]);
+        $this->middleware('permission:حذف قسم', ['only' => ['deletcat']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

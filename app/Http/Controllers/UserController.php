@@ -11,6 +11,12 @@ use Spatie\Permission\Models\Permission;
 
 class UserController extends Controller
 {
+    function __construct()
+    {
+        $this->middleware('permission:موظفين', ['only' => ['index']]);
+        $this->middleware('permission:اضافه موظف', ['only' => [ 'create','store']]);
+        $this->middleware('permission:تعديل موظف', ['only' => ['edit','update']]);
+    }
     /**
     * Display a listing of the resource.
     *
@@ -18,8 +24,8 @@ class UserController extends Controller
     */
     public function index(Request $request)
     {
-        $users = User::where('roles_name', '!=', '["\u0639\u0645\u064a\u0644"]')->orderBy('id','DESC')->paginate(5);
-
+        $users = User::where('roles_name', '!=', 'admin')->orderBy('id','DESC')->get();
+        $i = 0;
         return view('admin.users.index',compact('users', 'i'));
     }
     /**
@@ -68,17 +74,11 @@ class UserController extends Controller
     public function edit($id)
     {
         $user       = User::find($id);
-        $historys    = HistoryProduct::where('user_id', '=', $id)->get();
-        // return $historys;
         $roles      = Role::pluck('name','name')->all();
-        $role = Role::where('name', '=', $user->roles_name[0])->first();
-
-        $userrolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
-        ->where("role_has_permissions.role_id",$role->id)
-        ->get();
+        $historys   = HistoryProduct::where('user_id', '=', $id)->get();
 
 
-        return view('admin.users.edit',compact('user','roles','userrolePermissions', 'historys'));
+        return view('admin.users.edit',compact('user','roles', 'historys'));
     }
     /**
     * Update the specified resource in storage.
@@ -127,7 +127,7 @@ class UserController extends Controller
     {
         $data = $request->all();
         $data['status'] = 0;
-        $data['roles_name'] = ['عميل'];
+        $data['roles_name'] = ['owner'];
         $user = User::create($data);
         if ($user) {
             return $user->id;
@@ -148,7 +148,7 @@ class UserController extends Controller
     // Update User In Product Page With Ajax
     public function customerIndex()
     {
-        $customers = User::orderBy('id','DESC')->where('roles_name', '=', '["\u0639\u0645\u064a\u0644"]')->get();
+        $customers = User::orderBy('id','DESC')->where('roles_name', '=', 'coustmer')->get();
         return view('admin.customer.index',compact(['customers']))->with('i');
     }
 
@@ -164,9 +164,6 @@ class UserController extends Controller
     {
         return view('admin.customer.create');
     }
-
-
-
 }
 
 

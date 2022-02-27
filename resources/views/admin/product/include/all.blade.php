@@ -81,11 +81,7 @@
 
                     @endcan
 
-                    @can('رفض منتج')
-                        <div class="col-xxl-6 col-lg-6 text-center mt-5">
-                            <a class="btn btn-primary " href="#">مرفوض</a>
-                        </div>
-                    @endcan
+
 
                     @can('اضافه ملاحظه للمنتج')
                         <div class="col-xxl-6 col-lg-6 text-center mt-5 mb-5">

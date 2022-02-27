@@ -26,7 +26,7 @@ class ProductRequest extends FormRequest
         return [
             'name_product'       => 'min:2|max:200|string|required',
             'category_id'        => 'required|numeric',
-            'damage'             => 'string|nullable',
+            'damage'             => 'nullable',
             'serial_number'      => 'nullable',
             // 'product_inclusions' => 'string|nullable',
         ];

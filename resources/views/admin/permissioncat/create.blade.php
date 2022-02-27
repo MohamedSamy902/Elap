@@ -5,12 +5,16 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-sm-6">
-                    <h3>اضافه قسم</h3>
+                    <h3>اضافه موظف للقسم</h3>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="index.html">الرئيسية</a>
+                            <a href="{{ url('/admin') }}">الرئيسية</a>
                         </li>
-                        <li class="breadcrumb-item">الاقسام</li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('category.index') }}">
+                                الاقسام
+                            </a>
+                        </li>
                         <li class="breadcrumb-item active">اضافة قسم</li>
                     </ol>
                 </div>
@@ -29,23 +33,23 @@
                             <div class="card">
 
                                 <div class="card-body">
-                                        <div class="mb-3">
-                                            <label class="col-form-label">اسم القسم</label>
-                                            <select name="category_id" id="" class="form-control">
-                                                @foreach($categories as $category)
-                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                    <div class="mb-3">
+                                        <label class="col-form-label">اسم القسم</label>
+                                        <select name="category_id" id="" class="form-control">
+                                            @foreach ($categories as $category)
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
 
-                                        <div class="mb-3">
-                                            <label class="col-form-label">اسم الموظف</label>
-                                            <select name="user_id" id="" class="form-control">
-                                                 @foreach($users as $user)
-                                                    <option value="{{ $user->id }}">{{ $user->name }}</option>
-                                                @endforeach
-                                            </select>
-                                        </div>
+                                    <div class="mb-3">
+                                        <label class="col-form-label">اسم الموظف</label>
+                                        <select name="user_id" id="" class="form-control">
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
 
                                 </div>
                                 <div class="card-footer">

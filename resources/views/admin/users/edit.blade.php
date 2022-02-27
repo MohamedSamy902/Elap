@@ -36,16 +36,6 @@
                                 <div class="mb-3">
                                     <h4 class="form-label text-center">{{ $user->roles_name[0] }}</h4>
                                 </div>
-                                <div class="row">
-                                    @foreach ($userrolePermissions as $value)
-                                        <div class="col-12" style="margin-bottom: 10px">
-                                            <label for="chk-ani{{ $value->id }}">
-                                                {{ $value->name }}
-                                            </label>
-                                        </div>
-                                    @endforeach
-
-                                </div>
                             </form>
                         </div>
                     </div>
@@ -91,7 +81,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="mb-3">
-                                        <label class="form-label">كلمه السر</label>
+                                        <label class="form-label">الصلاحيات</label>
                                         <select class="form-select" name="roles_name">
                                             @foreach ($roles as $key)
                                                 <option value="{{ $key }}">{{ $key }}</option>
@@ -165,42 +155,43 @@
                                 aria-labelledby="top-home-tab">
                                 <div class="row">
                                     <div class="col-xxl-12 col-lg-12">
-                                    @foreach($historys as $history)
-                                        <div class="project-box">
-                                            <span class="badge badge-primary">Doing</span>
-                                            <div class="row">
-                                                <div class="col-xxl-4 col-lg-4">
-                                                    <h6>
-                                                        <a href="{{ route('product.show', $history->product->id) }}">
-                                                            {{ $history->product->name_product }}
-                                                        </a>
-                                                    </h6>
+                                        @foreach ($historys as $history)
+                                            <div class="project-box">
+                                                <span class="badge badge-primary">Doing</span>
+                                                <div class="row">
+                                                    <div class="col-xxl-4 col-lg-4">
+                                                        <h6>
+                                                            <a href="{{ route('product.show', $history->product->id) }}">
+                                                                {{ $history->product->name_product }}
+                                                            </a>
+                                                        </h6>
 
-                                                    <div class="media">
-                                                        <div class="media-body">
-                                                            <p>{{ $history->user->name }}</p>
+                                                        <div class="media">
+                                                            <div class="media-body">
+                                                                <p>{{ $history->user->name }}</p>
+                                                            </div>
                                                         </div>
+
+                                                        <div class="row details">
+                                                            <div class="col-6"><span>المشتملات </span>
+                                                            </div>
+                                                            <div class="col-6 font-primary">
+                                                                {{ $history->product->product_inclusions }}
+                                                            </div>
+                                                            <div class="col-6"> <span>العطل</span></div>
+                                                            <div class="col-6 font-primary">
+                                                                {{ $history->product->damage }}
+                                                            </div>
+                                                            <div class="col-6"> <span>التعليقات</span>
+                                                            </div>
+                                                            <div class="col-6 font-primary">
+                                                                {{ COUNT($history->product->comment) }}</div>
+                                                        </div>
+
                                                     </div>
-
-                                                    <div class="row details">
-                                                        <div class="col-6"><span>المشتملات </span>
-                                                        </div>
-                                                        <div class="col-6 font-primary">
-                                                            {{ $history->product->product_inclusions }}
-                                                        </div>
-                                                        <div class="col-6"> <span>العطل</span></div>
-                                                        <div class="col-6 font-primary">{{ $history->product->damage }}
-                                                        </div>
-                                                        <div class="col-6"> <span>التعليقات</span>
-                                                        </div>
-                                                        <div class="col-6 font-primary">
-                                                            {{ COUNT($history->product->comment) }}</div>
-                                                    </div>
-
-                                                </div>
-                                                <div class="col-xxl-5 col-lg-5 text-center mt-5">
-                                                    <div class="row details">
-                                                        {{-- @foreach ($historys as $history) --}}
+                                                    <div class="col-xxl-5 col-lg-5 text-center mt-5">
+                                                        <div class="row details">
+                                                            {{-- @foreach ($historys as $history) --}}
                                                             <div class="col-4">
                                                                 <span>{{ $history->user->roles_name[0] }}
                                                                     ({{ $history->user->name }})
@@ -212,13 +203,13 @@
                                                             <div class="col-4 font-primary">
                                                                 {{ $history->end_at }}</div>
                                                             <hr>
-                                                        {{-- @endforeach --}}
+                                                            {{-- @endforeach --}}
 
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
                                     </div>
 
                                 </div>
@@ -226,14 +217,15 @@
                             <div class="tab-pane fade" id="top-profile" role="tabpanel" aria-labelledby="profile-top-tab">
                                 <div class="row">
                                     <div class="col-xxl-12 col-lg-12">
-                                        @foreach($historys as $history)
-                                            @if($history->status == 0 && $history->end_at == NUll)
+                                        @foreach ($historys as $history)
+                                            @if ($history->status == 0 && $history->end_at == null)
                                                 <div class="project-box">
                                                     <span class="badge badge-primary">Doing</span>
                                                     <div class="row">
                                                         <div class="col-xxl-4 col-lg-4">
                                                             <h6>
-                                                                <a href="{{ route('product.show', $history->product->id) }}">
+                                                                <a
+                                                                    href="{{ route('product.show', $history->product->id) }}">
                                                                     {{ $history->product->name_product }}
                                                                 </a>
                                                             </h6>
@@ -251,7 +243,8 @@
                                                                     {{ $history->product->product_inclusions }}
                                                                 </div>
                                                                 <div class="col-6"> <span>العطل</span></div>
-                                                                <div class="col-6 font-primary">{{ $history->product->damage }}
+                                                                <div class="col-6 font-primary">
+                                                                    {{ $history->product->damage }}
                                                                 </div>
                                                                 <div class="col-6"> <span>التعليقات</span>
                                                                 </div>
@@ -287,14 +280,15 @@
                             <div class="tab-pane fade" id="top-contact" role="tabpanel" aria-labelledby="contact-top-tab">
                                 <div class="row">
                                     <div class="col-xxl-12 col-lg-12">
-                                        @foreach($historys as $history)
-                                            @if($history->status == 1 && $history->end_at != NUll)
+                                        @foreach ($historys as $history)
+                                            @if ($history->status == 1 && $history->end_at != null)
                                                 <div class="project-box">
                                                     <span class="badge badge-primary">Doing</span>
                                                     <div class="row">
                                                         <div class="col-xxl-4 col-lg-4">
                                                             <h6>
-                                                                <a href="{{ route('product.show', $history->product->id) }}">
+                                                                <a
+                                                                    href="{{ route('product.show', $history->product->id) }}">
                                                                     {{ $history->product->name_product }}
                                                                 </a>
                                                             </h6>
@@ -312,7 +306,8 @@
                                                                     {{ $history->product->product_inclusions }}
                                                                 </div>
                                                                 <div class="col-6"> <span>العطل</span></div>
-                                                                <div class="col-6 font-primary">{{ $history->product->damage }}
+                                                                <div class="col-6 font-primary">
+                                                                    {{ $history->product->damage }}
                                                                 </div>
                                                                 <div class="col-6"> <span>التعليقات</span>
                                                                 </div>

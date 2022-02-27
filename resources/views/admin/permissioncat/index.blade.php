@@ -9,8 +9,9 @@
                     <h3>الاقسام الرئيسية</h3>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="index.html">الرئيسية</a>
+                            <a href="{{ url('/admin') }}">الرئيسية</a>
                         </li>
+
                         <li class="breadcrumb-item active">الاقسام</li>
                     </ol>
                 </div>
@@ -19,7 +20,7 @@
                     <div class="bookmark">
                         <ul>
                             <li>
-                                <a href="{{ route('category.create') }}" >
+                                <a href="{{ route('category.create') }}">
                                     <i data-feather="plus"></i>
                                 </a>
                             </li>
@@ -53,14 +54,13 @@
 
                                 <tbody>
                                     @foreach ($permissioncats as $permissioncat)
-
                                         <tr>
                                             <td>{{ $permissioncat->id }}</td>
                                             <td>{{ $permissioncat->category->name }}</td>
                                             <td>{{ $permissioncat->user->name }}</td>
                                             <td>
                                                 {!! Form::open(['method' => 'DELETE', 'route' => ['permissioncat.destroy', $permissioncat->id], 'style' => 'display:inline']) !!}
-                                                    {!! Form::submit('حذف', ['class' => 'icofont icofont-ui-delete']) !!}
+                                                {!! Form::submit('حذف', ['class' => 'icofont icofont-ui-delete']) !!}
                                                 {!! Form::close() !!}
 
                                             </td>
@@ -76,5 +76,4 @@
         </div>
     </div>
     <!-- Container-fluid Ends-->
-
 @endsection

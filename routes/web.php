@@ -3,21 +3,14 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+
 
 Auth::routes();
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin'], function() {
 
-    Route::get('/test', 'App\Http\Controllers\AdminController@index');
+    Route::get('/test', 'App\Http\Controllers\AdminController@index')->name('home');
+
+
     Route::post('testajax/{phone}', 'App\Http\Controllers\UserController@ajaxtest');
 
     Route::post('insertuser', 'App\Http\Controllers\UserController@insertuser');

@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
 
 @section('content')
-@include('admin.alert.notfications')
+    @include('admin.alert.notfications')
     <div class="container-fluid">
         <div class="page-header">
             <div class="row">
@@ -9,9 +9,13 @@
                     <h3>تعديل دور الموظف</h3>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="index.html">الرئيسية</a>
+                            <a href="{{ url('/admin') }}">الرئيسية</a>
                         </li>
-                        <li class="breadcrumb-item">دور الموظف</li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('roles.index') }}">
+                                دور الموظف
+                            </a>
+                        </li>
                         <li class="breadcrumb-item active">تعديل دور الموظف</li>
                     </ol>
                 </div>
@@ -35,7 +39,8 @@
                                             <div class="row">
                                                 <div class="col-12">
                                                     <label>دور الموظف</label>
-                                                    <input class="form-control" type="text" name="name" value="{{ $role->name }}">
+                                                    <input class="form-control" type="text" name="name"
+                                                        value="{{ $role->name }}">
                                                 </div>
 
                                             </div>
@@ -53,7 +58,8 @@
                                                             <label for="chk-ani{{ $value->id }}">
                                                                 <input class="checkbox_animated" id="chk-ani2"
                                                                     type="checkbox" name="permission[]"
-                                                                    value="{{ $value->id }}" {{ in_array($value->id, $rolePermissions) ? 'checked' : '' }} />
+                                                                    value="{{ $value->id }}"
+                                                                    {{ in_array($value->id, $rolePermissions) ? 'checked' : '' }} />
                                                                 {{ $value->name }}
                                                             </label>
                                                         </div>
@@ -79,5 +85,4 @@
             </div>
         </form>
     </div>
-
 @endsection

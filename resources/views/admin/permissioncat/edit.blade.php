@@ -8,9 +8,13 @@
                     <h3>تعديل قسم</h3>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="index.html">الرئيسية</a>
+                            <a href="{{ url('/admin') }}">الرئيسية</a>
                         </li>
-                        <li class="breadcrumb-item">الاقسام</li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('category.index') }}">
+                                الاقسام
+                            </a>
+                        </li>
                         <li class="breadcrumb-item active">تعديل قسم</li>
                     </ol>
                 </div>
@@ -33,11 +37,12 @@
                                     <h5>بيانات القسم</h5>
                                 </div> --}}
                                 <div class="card-body">
-                                        <div class="mb-3">
-                                            <label class="col-form-label">اسم القسم</label>
-                                            <input class="form-control" type="text" placeholder="اسم القسم" name="name" value="{{ $category->name }}">
-                                            <input type="hidden" name="id" value="{{ $category->id }}">
-                                        </div>
+                                    <div class="mb-3">
+                                        <label class="col-form-label">اسم القسم</label>
+                                        <input class="form-control" type="text" placeholder="اسم القسم" name="name"
+                                            value="{{ $category->name }}">
+                                        <input type="hidden" name="id" value="{{ $category->id }}">
+                                    </div>
 
                                 </div>
                                 <div class="card-footer">

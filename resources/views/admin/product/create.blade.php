@@ -23,7 +23,7 @@
                                                 <div class="col-10">
                                                     <label>رقم الهاتف</label>
                                                     <input required class="form-control" type="text"
-                                                        placeholder="Project name *" name="phone" id="phone">
+                                                        placeholder="رقم الهاتف *" name="phone" id="phone">
                                                 </div>
                                                 <div class="col-2" style="cursor: pointer">
                                                     <label>بحث</label><br>
@@ -39,14 +39,14 @@
                                         <div class="mb-3">
                                             <label>اسم العميل</label>
                                             <input required id="coustmerName" class="form-control" type="text"
-                                                placeholder="Name client or company name" name="name">
+                                                placeholder="اسم العميل *" name="name">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="mb-3">
                                             <label>البريد الالكتروني</label>
                                             <input required name="email" id="emailCoustmer" class="form-control"
-                                                type="text" placeholder="Enter project Rate">
+                                                type="text" placeholder="البريد الاليكتروني">
                                             <input required name="user_id" id="user_id" type="hidden">
                                         </div>
                                     </div>
@@ -78,35 +78,40 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-sm-4">
-                                        <div class="mb-3">
-                                            <label>العطل</label>
-                                            <input required name="damage" class="datepicker-here form-control" type="text"
-                                                data-language="en">
-                                        </div>
-                                    </div>
+
                                 </div>
                                 <div class="element row" id="div_1">
 
                                     <div class="col-sm-4">
-                                        <div class="mb-3">
-                                            <label>السريال</label>
-                                            <input type="text" name="serial_number[]" class="datepicker-here form-control"
-                                                placeholder="Enter your skill" id="txt_1" />&nbsp;
-
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-4">
-                                        <div class="mb-3">
+                                        <div class="mb-4">
                                             <label>المشتملات</label>
                                             <input name="product_inclusions[]" class="datepicker-here form-control"
                                                 type="text" data-language="en">
                                         </div>
                                     </div>
 
+                                    <div class="col-sm-3">
+                                        <div class="mb-3">
+                                            <label>السريال</label>
+                                            <input type="text" name="serial_number[]" class="datepicker-here form-control"
+                                                id="txt_1" />&nbsp;
+
+                                        </div>
+                                    </div>
+
                                     <div class="col-sm-4">
-                                        <span class="add btn btn-primary">اضافة</span>
+                                        <div class="mb-4">
+                                            <label>العطل</label>
+                                            <input name="damage[]" class="datepicker-here form-control" type="text"
+                                                data-language="en">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-1">
+                                        <div class="mb-1">
+                                            <label></label>
+                                            <span class="add btn btn-primary">اضافة</span>
+                                        </div>
                                     </div>
 
 
@@ -254,8 +259,39 @@
 
                 // Adding element to <div>
                 $("#div_" + nextindex).append(
-                    '<div class="col-sm-4"><div class="mb-3"><label>السريال</label><input  type="text"name="serial_number[]"class="datepicker-here form-control" placeholder="Enter your skill"/>&nbsp;</div></div> <div class="col-sm-4"><div class="mb-3"><label>المشتملات</label><input  name="product_inclusions[]" class="datepicker-here form-control" type="text" data-language="en" /> </div> </div> <div " class="col-sm-4"> <span id="remove_' +
-                    nextindex + '" class="remove">X</span> </div></div></div>');
+                    `
+                    <div class="col-sm-4">
+                        <div class="mb-4">
+                            <label>المشتملات</label>
+                            <input name="product_inclusions[]" class="datepicker-here form-control"
+                                type="text" data-language="en">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="mb-3">
+                            <label>السريال</label>
+                            <input type="text" name="serial_number[]" class="datepicker-here form-control"
+                                id="txt_1" />&nbsp;
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="mb-3">
+                            <label>العطل</label>
+                            <input name="damage[]" class="datepicker-here form-control" type="text"
+                                data-language="en">
+                        </div>
+                    </div>
+
+                    <div class="col-sm-1">
+                        <div class="mb-3">
+                        <label></label>
+                            <span id="remove_${nextindex}" class="remove btn btn-danger">-</span>
+                        </div>
+                    </div>`
+                );
             });
 
             // Remove element
@@ -263,7 +299,6 @@
                 var id = this.id;
                 var split_id = id.split("_");
                 var deleteindex = split_id[1];
-                console.log(id);
                 // Remove <div> with id
                 $("#div_" + deleteindex).remove();
             });

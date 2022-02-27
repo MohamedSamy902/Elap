@@ -4,7 +4,7 @@
     <!-- Container-fluid starts-->
     @include('admin.alert.notfications')
 
-        <!-- Container-fluid starts-->
+    <!-- Container-fluid starts-->
     <div class="container-fluid">
         <div class="page-header">
             <div class="row">
@@ -12,8 +12,9 @@
                     <h3>العملاء</h3>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="index.html">الرئيسية</a>
+                            <a href="{{ url('/admin') }}">الرئيسية</a>
                         </li>
+
                         <li class="breadcrumb-item active">العملاء</li>
                     </ol>
                 </div>
@@ -22,7 +23,7 @@
                     <div class="bookmark">
                         <ul>
                             <li>
-                                <a href="{{ route('customer.create') }}" >
+                                <a href="{{ route('customer.create') }}">
                                     <i data-feather="plus"></i>
                                 </a>
                             </li>
@@ -64,8 +65,8 @@
                                             <td>
                                                 <a href="{{ route('customer.edit', $user->id) }}"><i
                                                         class="icofont icofont-ui-edit"></i></a>
-                                               {!! Form::open(['method' => 'DELETE', 'route' => ['user.destroy', $user->id], 'style' => 'display:inline']) !!}
-                                                    {!! Form::submit('Delete', ['class' => 'icofont icofont-ui-delete']) !!}
+                                                {!! Form::open(['method' => 'DELETE', 'route' => ['user.destroy', $user->id], 'style' => 'display:inline']) !!}
+                                                {!! Form::submit('Delete', ['class' => 'icofont icofont-ui-delete']) !!}
                                                 {!! Form::close() !!}
                                             </td>
                                         </tr>

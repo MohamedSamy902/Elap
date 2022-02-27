@@ -9,7 +9,7 @@
                     <h3>الملف الشخصي</h3>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="index.html">الرئيسية</a>
+                            <a href="{{ url('/admin') }}">الرئيسية</a>
                         </li>
                         <li class="breadcrumb-item">الملف الشخصي</li>
                         <li class="breadcrumb-item active">تعديل الملف الشخصي</li>
@@ -31,14 +31,10 @@
                         <div class="card-header pb-0">
                             <h4 class="card-title mb-0">الملف الشحصي</h4>
                             <div class="card-options">
-                                <a class="card-options-collapse"
-                                    href="#"
-                                    data-bs-toggle="card-collapse">
+                                <a class="card-options-collapse" href="#" data-bs-toggle="card-collapse">
                                     <i class="fe fe-chevron-up"></i>
                                 </a>
-                                <a class="card-options-remove"
-                                    href="#"
-                                    data-bs-toggle="card-remove">
+                                <a class="card-options-remove" href="#" data-bs-toggle="card-remove">
                                     <i class="fe fe-x"></i>
                                 </a>
                             </div>
@@ -100,8 +96,8 @@
                                     </h6>
 
                                     <div class="media">
-                                        <img class="img-20 me-2 rounded-circle"
-                                            src="../assets/images/user/3.jpg" alt="" data-original-title="" title="">
+                                        <img class="img-20 me-2 rounded-circle" src="../assets/images/user/3.jpg" alt=""
+                                            data-original-title="" title="">
                                         <div class="media-body">
                                             <p>{{ $product->user->name }}</p>
                                         </div>
@@ -150,13 +146,12 @@
                                 <div class="col-xl-3 col-lg-3">
                                     <div class="row">
                                         @can('تعديل منتج')
-                                        @if ($product->status == 0)
-
-                                            <div class="col-xxl-6 col-lg-6 col-sm-6 text-center mt-5">
-                                                <a class="btn btn-primary "
-                                                    href="{{ route('product.edit', $product->id) }}">تعديل</a>
-                                            </div>
-                                        @endif
+                                            @if ($product->status == 0)
+                                                <div class="col-xxl-6 col-lg-6 col-sm-6 text-center mt-5">
+                                                    <a class="btn btn-primary "
+                                                        href="{{ route('product.edit', $product->id) }}">تعديل</a>
+                                                </div>
+                                            @endif
                                         @endcan
 
                                         @can('حذف منتج')
@@ -178,18 +173,15 @@
                                                 <a class="btn btn-primary " href="#">تسليم
                                                     العميل</a>
                                             </div>
-
                                         @endcan
 
                                         @can('رفض منتج')
-
                                             <div class="col-xxl-6 col-lg-6 text-center mt-5">
                                                 <a class="btn btn-primary " href="#">مرفوض</a>
                                             </div>
                                         @endcan
 
                                         @can('اضافه ملاحظه للمنتج')
-
                                             <div class="col-xxl-6 col-lg-6 text-center mt-5 mb-5">
                                                 <a class="btn btn-primary " href="#">اضافة تعليق</a>
                                             </div>
@@ -200,9 +192,8 @@
                             </div>
                         </div>
                     </div>
-
                 @endforeach
             </div>
         </div>
     </div>
-            @endsection
+@endsection

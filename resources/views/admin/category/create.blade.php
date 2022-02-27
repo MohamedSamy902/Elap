@@ -8,9 +8,13 @@
                     <h3>اضافه قسم</h3>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="index.html">الرئيسية</a>
+                            <a href="{{ url('/admin') }}">الرئيسية</a>
                         </li>
-                        <li class="breadcrumb-item">الاقسام</li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('category.index') }}">
+                                الاقسام
+                            </a>
+                        </li>
                         <li class="breadcrumb-item active">اضافة قسم</li>
                     </ol>
                 </div>
@@ -29,10 +33,10 @@
                             <div class="card">
 
                                 <div class="card-body">
-                                        <div class="mb-3">
-                                            <label class="col-form-label">اسم القسم</label>
-                                            <input class="form-control" type="text" placeholder="اسم القسم" name="name">
-                                        </div>
+                                    <div class="mb-3">
+                                        <label class="col-form-label">اسم القسم</label>
+                                        <input class="form-control" type="text" placeholder="اسم القسم" name="name">
+                                    </div>
 
                                 </div>
                                 <div class="card-footer">

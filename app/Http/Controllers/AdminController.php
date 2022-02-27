@@ -8,6 +8,6 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return auth()->user()->roles_name[0];
+        return view('admin.index');
     }
 }

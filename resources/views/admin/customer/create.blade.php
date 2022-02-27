@@ -1,7 +1,7 @@
 @extends('admin.layout.master')
 
 @section('content')
-@include('admin.alert.notfications')
+    @include('admin.alert.notfications')
     <div class="container-fluid">
         <div class="page-header">
             <div class="row">
@@ -9,9 +9,13 @@
                     <h3>اضافه الموظفين</h3>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="index.html">الرئيسية</a>
+                            <a href="{{ url('/admin') }}">الرئيسية</a>
                         </li>
-                        <li class="breadcrumb-item">الموظفين</li>
+                        <li class="breadcrumb-item">
+                            <a href="{{ route('customer.index') }}">
+                                العملاء
+                            </a>
+                        </li>
                         <li class="breadcrumb-item active">اضافة موظف</li>
                     </ol>
                 </div>
